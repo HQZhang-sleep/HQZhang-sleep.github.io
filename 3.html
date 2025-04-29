@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中山大学体育场馆预订系统 - 模拟</title>
+    <style>
+        /* --- 基本重置和全局样式 --- */
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background-color: #f4f4f4;
+            /* 页面背景色 */
+            color: #333;
+            font-size: 14px;
+            line-height: 1.5;
+            /* 默认行高 */
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        button {
+            border: none;
+            background: none;
+            padding: 0;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
+            line-height: inherit;
+            /* 继承行高防止对齐问题 */
+            text-align: center;
+            /* 默认按钮文本居中 */
+        }
+
+        /* --- 容器 --- */
+        .mobile-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: #fff;
+            /* 容器主要背景改为白色 */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* --- 1. 模拟导航栏 (与截图略有不同，截图为原生导航栏) --- */
+        .nav-bar {
+            background-color: #10aeff;
+            /* 截图中的蓝色 */
+            color: white;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            font-size: 17px;
+            /* 稍微调整字体大小 */
+            font-weight: 500;
+            /* 调整字重 */
+            position: sticky;
+            /* 可以固定在顶部 */
+            top: 0;
+            z-index: 10;
+        }
+
+        .nav-bar .back-arrow {
+            font-size: 24px;
+            margin-right: 10px;
+            font-weight: normal;
+            width: 25px;
+            /* 给返回箭头一个固定宽度 */
+        }
+
+        .nav-bar .title {
+            flex-grow: 1;
+            text-align: center;
+            /* 移除右边内边距，让标题居中更准确 */
+        }
+
+        .nav-bar .menu-dots {
+            font-size: 24px;
+            line-height: 1;
+            width: 25px;
+            /* 给菜单点一个固定宽度 */
+            text-align: right;
+        }
+
+        /* --- 2. 新增: 头部 Logo 和账户区域 --- */
+        .header-section {
+            background-color: #007d28;
+            /* 中大绿 */
+            color: white;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* 两端对齐 */
+        }
+
+        .header-section .logo-area {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-section .logo {
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            /* 临时用白色背景表示Logo */
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            /* 用于可能放文字或图标 */
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #007d28;
+            font-weight: bold;
+            /* 在实际小程序中，这里会用 <image> 标签 */
+        }
+
+        .header-section .university-name span {
+            display: block;
+            /* 让两行文字竖排 */
+        }
+
+        .header-section .university-name .cn {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .header-section .university-name .en {
+            font-size: 10px;
+            opacity: 0.8;
+        }
+
+        .header-section .account-actions button {
+            background-color: #fff;
+            color: #007d28;
+            border-radius: 15px;
+            padding: 5px 15px;
+            font-size: 13px;
+            margin-left: 8px;
+            border: 1px solid #fff;
+        }
+
+        .header-section .account-actions button.logout {
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid #fff;
+        }
+
+        /* --- 3. 操作栏 (返回/预约管理) --- */
+        .action-bar {
+            display: flex;
+            padding: 10px 15px;
+            background-color: #fff;
+            /* 背景改为白色 */
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            /* 加一个底部分隔线 */
+        }
+
+        .action-button.back-home {
+            background-color: #007d28;
+            /* 中大绿 */
+            color: white;
+            padding: 6px 12px;
+            /* 微调内边距 */
+            border-radius: 4px;
+            /* 调整圆角 */
+            font-size: 14px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            line-height: 1.2;
+            /* 调整行高 */
+            border: none;
+        }
+
+        .action-button.back-home .icon-home {
+            font-size: 16px;
+            /* 图标大小 */
+            margin-right: 4px;
+            /* 图标和文字间距 */
+            line-height: 1;
+            /* 实际小程序使用 iconfont 或 image */
+        }
+
+        .filter-dropdown {
+            flex-grow: 1;
+            background-color: #f7f7f7;
+            /* 浅灰色背景 */
+            border: 1px solid #e0e0e0;
+            /* 边框颜色 */
+            border-radius: 4px;
+            padding: 6px 10px;
+            /* 微调内边距 */
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .filter-dropdown .icon {
+            margin-right: 6px;
+            font-size: 16px;
+            color: #888;
+            /* 图标颜色 */
+            /* 实际用 iconfont 或 image */
+        }
+
+        .filter-dropdown .text {
+            margin: 0 5px 0 0;
+            /* 调整文字右边距 */
+        }
+
+        .filter-dropdown .icon-arrow-down {
+            margin-left: auto;
+            font-size: 12px;
+            color: #aaa;
+            /* 箭头颜色 */
+        }
+
+        /* --- 4. 新增: Tab Bar --- */
+        .tab-bar {
+            display: flex;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+            padding: 0 15px;
+            /* 左右留白 */
+        }
+
+        .tab-item {
+            flex: 1;
+            text-align: center;
+            padding: 12px 0;
+            font-size: 15px;
+            color: #666;
+            position: relative;
+            /* 用于下划线定位 */
+            cursor: pointer;
+        }
+
+        .tab-item.active {
+            color: #007d28;
+            /* 激活状态颜色 */
+            font-weight: 500;
+        }
+
+        .tab-item.active::after {
+            /* 激活状态下划线 */
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            /* 下划线宽度 */
+            height: 2px;
+            background-color: #007d28;
+            border-radius: 1px;
+        }
+
+        /* --- 5. 新增: 筛选区域 --- */
+        .filter-section {
+            display: flex;
+            padding: 10px 15px;
+            background-color: #f4f4f4;
+            /* 和内容区域背景一致 */
+            align-items: center;
+            gap: 10px;
+            /* 元素间距 */
+        }
+
+        .filter-button {
+            display: flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .filter-button.date-filter {
+            background-color: #007d28;
+            /* 绿色背景 */
+            color: white;
+        }
+
+        .filter-button.date-filter .icon {
+            margin-right: 5px;
+            font-size: 16px;
+            /* 实际用 iconfont 或 image */
+        }
+
+        .filter-button.status-filter {
+            background-color: #fff;
+            /* 白色背景 */
+            color: #666;
+            border: 1px solid #e0e0e0;
+            flex-grow: 1;
+            /* 占据剩余空间 */
+            justify-content: space-between;
+            /* 文本和箭头分开 */
+        }
+
+        .filter-button.status-filter .text-label {
+            font-size: 10px;
+            /* “状态”文字较小 */
+            color: #999;
+            margin-right: 5px;
+        }
+
+        .filter-button.status-filter .text-value {
+            /* 状态值样式 */
+        }
+
+        .filter-button.status-filter .icon-arrow-down {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+
+        /* --- 6. 内容区域 --- */
+        /* 新增的样式 */
+        .content-box {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .content-inner {
+            padding: 15px;
+        }
+
+        /* 调整原有样式 */
+        .content-area {
+            background-color: #f4f4f4;
+            padding: 15px;
+            flex-grow: 1;
+        }
+
+        .tab-bar {
+            background-color: #f8f8f8;
+            border-bottom: 1px solid #eee;
+            padding: 0;
+        }
+
+        .filter-section {
+            background-color: #f8f8f8;
+            padding: 10px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* 新增 */
+
+        .content-area {
+            background-color: #f4f4f4;
+            /* 背景色 */
+            padding: 10px 15px;
+            /* 内边距 */
+            flex-grow: 1;
+        }
+
+        /* --- 7. 预订卡片 --- */
+        .booking-card {
+            background-color: #fff;
+            border-radius: 6px;
+            /* 轻微调整圆角 */
+            margin-bottom: 10px;
+            padding: 12px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+            /* 微调阴影 */
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border: 1px solid #eee;
+            /* 添加一个细边框 */
+        }
+
+        .booking-card:hover {
+            background-color: #fafafa;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            /* 减少底部间距 */
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .card-header .icon-info {
+            width: 18px;
+            height: 18px;
+            /* 图标大小 */
+            background-color: #aaa;
+            /* 灰色背景 */
+            border-radius: 50%;
+            color: white;
+            font-size: 12px;
+            display: inline-flex;
+            /* 使用flex方便居中 */
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+            /* 右边距 */
+            flex-shrink: 0;
+            /* 防止被压缩 */
+            /* 实际用 iconfont 或 image */
+        }
+
+        .card-header .title {
+            font-size: 15px;
+            /* 调整标题大小 */
+            font-weight: 500;
+            /* 调整字重 */
+            color: #333;
+            flex-grow: 1;
+            margin-left: 0;
+            /* 移除左边距，靠图标 */
+            word-break: break-all;
+            /* 防止长标题溢出 */
+        }
+
+        .status-badge {
+            background-color: #e0f5e9;
+            /* 浅绿背景 */
+            color: #07c160;
+            /* 绿色文字 */
+            font-size: 12px;
+            padding: 3px 8px;
+            /* 调整内边距 */
+            border-radius: 4px;
+            /* 轻微圆角 */
+            border: 1px solid #b3e6c7;
+            /* 绿色边框 */
+            flex-shrink: 0;
+            /* 防止被压缩 */
+            margin-left: 8px;
+            /* 和标题间距 */
+        }
+
+        .card-details {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.8;
+            /* 增加行高 */
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+            /* 减少行间距 */
+        }
+
+        .detail-row .icon {
+            width: 16px;
+            /* 固定图标宽度 */
+            height: 16px;
+            margin-right: 6px;
+            /* 图标和文字间距 */
+            color: #999;
+            /* 图标颜色 */
+            font-size: 14px;
+            /* 图标字号 */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            /* background-color: #eee; 临时占位 */
+            /* 实际用 iconfont 或 image */
+        }
+
+        .icon-calendar::before {
+            content: '📅';
+        }
+
+        /* 示例：使用Emoji */
+        .icon-clock::before {
+            content: '🕒';
+        }
+
+        .icon-location::before {
+            content: '📍';
+        }
+
+        .icon-group::before {
+            content: '👥';
+        }
+
+
+        .booking-id {
+            color: #999;
+            font-size: 12px;
+            /* 编号字体小一点 */
+            margin-right: 10px;
+        }
+
+        .price {
+            color: #fa9d3b;
+            /* 橙色价格 */
+            font-weight: 500;
+            font-size: 13px;
+        }
+
+        /* 时间行特殊处理，图标和文本间距 */
+        .detail-row.time-row span:not(.icon) {
+            margin-right: 5px;
+            /* 日期和时间文本间距 */
+        }
+
+        .detail-row.time-row .icon-clock {
+            margin-left: 15px;
+            /* 时间图标和日期文本的间距 */
+        }
+
+        .participants-row {
+            margin-top: 8px;
+            /* 参与者行与其他行间距 */
+        }
+
+        .participants-row span:not(.icon) {
+            margin-left: 2px;
+            /* “参与者:” 文本 */
+            color: #333;
+            /* 颜色深一点 */
+        }
+
+
+        .card-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+            /* 调整与详情的间距 */
+            padding-top: 10px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .action-button {
+            /* 通用操作按钮样式 */
+            font-size: 13px;
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-left: 8px;
+            border: 1px solid;
+            line-height: 1.5;
+        }
+
+        .invite-button {
+            border-color: #07c160;
+            /* 绿色边框 */
+            color: #07c160;
+            /* 绿色文字 */
+            background-color: #fff;
+            /* 白色背景 */
+        }
+
+        .cancel-button {
+            border-color: #ee0a24;
+            /* 红色边框 */
+            color: #ee0a24;
+            /* 红色文字 */
+            background-color: #fff;
+            /* 白色背景 */
+        }
+
+        /* --- 8. 分页 --- */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 0;
+            background: #f4f4f4;
+            /* 和内容区背景一致 */
+        }
+
+        .page-button {
+            background-color: #fff;
+            /* 白色背景 */
+            border: 1px solid #e0e0e0;
+            /* 灰色边框 */
+            color: #666;
+            min-width: 32px;
+            /* 最小宽度 */
+            height: 32px;
+            line-height: 30px;
+            /* 垂直居中 */
+            text-align: center;
+            border-radius: 4px;
+            margin: 0 5px;
+            font-size: 14px;
+            padding: 0 5px;
+            /* 给箭头按钮一些空间 */
+        }
+
+        .page-button.active-page {
+            background-color: #07c160;
+            /* 激活状态绿色背景 */
+            color: white;
+            border-color: #07c160;
+            font-weight: bold;
+        }
+
+        .page-button:disabled {
+            color: #ccc;
+            cursor: not-allowed;
+            border-color: #eee;
+            background-color: #f8f8f8;
+            /* 禁用时背景色 */
+        }
+
+        /* --- 9. 底部信息 --- */
+        .footer {
+            background-color: #f4f4f4;
+            /* 和内容区背景一致 */
+            color: #aaa;
+            /* 灰色文字 */
+            font-size: 12px;
+            padding: 20px 15px;
+            /* 增加上下内边距 */
+            text-align: center;
+            line-height: 1.6;
+            /* 调整行高 */
+            border-top: 1px solid #eee;
+            /* 可能需要一个顶部线条 */
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        /* 底部文字不再特殊处理第一行 */
+
+        /* --- 10. Modal (弹窗) 样式 (基本保持不变) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            /* 默认隐藏 */
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .modal {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            width: 85%;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .modal-overlay.visible {
+            display: flex;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            /* 调整标题大小 */
+            font-weight: bold;
+            /* font-family: "黑体", SimHei, sans-serif; 移除特定字体 */
+            text-align: center;
+            /* 标题居中 */
+            margin-bottom: 20px;
+            color: #333;
+            padding-bottom: 15px;
+            /* 增加下边距 */
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-details p {
+            margin: 12px 0;
+            /* 调整行间距 */
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+            display: flex;
+        }
+
+        .modal-details strong {
+            color: #888;
+            /* 标签颜色调浅 */
+            font-weight: normal;
+            display: inline-block;
+            width: 75px;
+            /* 固定标签宽度 */
+            flex-shrink: 0;
+            margin-right: 8px;
+            /* 增加标签和内容间距 */
+            text-align: right;
+            /* 标签右对齐 */
+        }
+
+        .modal-details span {
+            flex-grow: 1;
+            color: #333;
+            /* 内容颜色 */
+        }
+
+        .modal-actions {
+            text-align: center;
+            /* 按钮居中 */
+            margin-top: 25px;
+            padding-top: 15px;
+            /* 按钮区域上边距 */
+            border-top: 1px solid #eee;
+            /* 加个上分割线 */
+        }
+
+        .modal-button-confirm {
+            background-color: #07c160;
+            color: white;
+            padding: 10px 40px;
+            /* 增大按钮 */
+            border-radius: 20px;
+            /* 圆角按钮 */
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            width: 80%;
+            /* 按钮宽度 */
+            max-width: 200px;
+        }
+
+        .modal-button-confirm:hover {
+            background-color: #06ad56;
+        }
+
+        /* --- 辅助图标样式 (简单模拟) --- */
+        .icon {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .icon-filter::before {
+            content: '🔧';
+            font-size: 14px;
+        }
+
+        /* 示例 */
+        .icon-info::before {
+            content: '!';
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        /* 示例 */
+        .icon-back::before {
+            content: '<';
+            font-size: 20px;
+        }
+
+        /* 示例 */
+        .icon-menu::before {
+            content: '⋮';
+            font-size: 20px;
+        }
+
+        /* 示例 */
+        /* 实际项目中建议使用 iconfont 或 SVG */
+    </style>
+</head>
+
+<body>
+    <div class="mobile-container">
+        <!-- 1. 模拟导航栏 -->
+        <div class="nav-bar">
+            <span class="back-arrow"><span class="icon-back"></span></span>
+            <span class="title">中山大学体育场馆预订系统</span>
+            <span class="menu-dots"><span class="icon-menu"></span></span>
+        </div>
+
+        <!-- 2. 新增: 头部 Logo 和账户区域 -->
+        <div class="header-section">
+            <div class="logo-area">
+                <div class="logo">Logo</div> <!-- 替换为实际 logo -->
+                <div class="university-name">
+                    <span class="cn">中山大学</span>
+                    <span class="en">SUN YAT-SEN UNIVERSITY</span>
+                </div>
+            </div>
+            <div class="account-actions">
+                <button>我的账号</button>
+                <button class="logout">登出</button>
+            </div>
+        </div>
+
+        <!-- 3. 操作栏 -->
+        <div class="action-bar">
+            <button class="action-button back-home">
+                <span class="icon icon-home">🏠</span> 返回
+            </button>
+            <div class="filter-dropdown">
+                <span class="icon icon-filter"></span>
+                <span class="text">预约管理</span>
+                <span class="icon icon-arrow-down">▼</span>
+            </div>
+        </div>
+
+        <!-- 4. 新增: Tab Bar -->
+        <!-- <div class="tab-bar">
+            <div class="tab-item active">我的预约</div>
+            <div class="tab-item">我的邀请</div>
+            <div class="tab-item">我的排队</div>
+        </div> -->
+
+        <!-- 5. 新增: 筛选区域 -->
+        <!-- <div class="filter-section">
+            <button class="filter-button date-filter">
+                <span class="icon">📅</span>
+                <span>预约日期</span>
+            </button>
+            <div class="filter-button status-filter">
+                <div>
+                    <span class="text-label">状态</span>
+                    <span class="text-value">已预约</span>
+                </div>
+                <span class="icon icon-arrow-down">▼</span>
+            </div>
+        </div> -->
+
+
+        <!-- 6. 内容区域 -->
+        <div class="content-area">
+            <!-- 新增一个统一的外框 -->
+            <div class="content-box">
+                <!-- 1. 三个标签页 -->
+                <div class="tab-bar">
+                    <div class="tab-item active">我的预约</div>
+                    <div class="tab-item">我的邀请</div>
+                    <div class="tab-item">我的排队</div>
+                </div>
+
+                <!-- 2. 筛选区域 -->
+                <div class="filter-section">
+                    <button class="filter-button date-filter">
+                        <span class="icon">📅</span>
+                        <span>预约日期</span>
+                    </button>
+                    <div class="filter-button status-filter">
+                        <div>
+                            <span class="text-label">状态</span>
+                            <span class="text-value">已预约</span>
+                        </div>
+                        <span class="icon icon-arrow-down">▼</span>
+                    </div>
+                </div>
+
+                <!-- 3. 内容部分 -->
+                <div class="content-inner">
+                    <!-- 预订卡片 1 -->
+                    <div class="booking-card" data-venue="南校园新体育馆乒乓球室" data-date="2025年4月30日" data-time="09:00 - 10:00"
+                        data-location="南校园新体育馆乒乓球室-场地1" data-booking-id="#RB-VT5P0FF2ET" data-price="运动时 ¥5">
+                        <div class="card-header">
+                            <span class="icon icon-info">!</span>
+                            <span class="title">南校园新体育馆乒乓球室</span>
+                            <span class="status-badge">已预约</span>
+                        </div>
+                        <div class="card-details">
+                            <div class="detail-row">
+                                <span class="booking-id">#RB-VT5P0FF2ET</span>
+                                <span class="price">运动时 ¥5</span>
+                            </div>
+                            <div class="detail-row time-row">
+                                <span class="icon icon-calendar"></span><span>2025年4月30日</span>
+                                <span class="icon icon-clock"></span><span>09:00 - 10:00</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="icon icon-location"></span><span>南校园新体育馆乒乓球室-场地1</span>
+                            </div>
+                            <div class="detail-row participant-row">
+                                <span class="icon icon-group"></span><span>参与者:</span>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="action-button invite-button">邀请</button>
+                            <button class="action-button cancel-button">取消</button>
+                        </div>
+                    </div>
+
+                    <!-- 分页 -->
+                    <div class="pagination">
+                        <button class="page-button" disabled>&lt;</button>
+                        <button class="page-button active-page">1</button>
+                        <button class="page-button">&gt;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 7. 底部信息 -->
+        <div class="footer">
+            <p>中山大学体育场馆预约系统</p>
+            <p>技术支持: xxxx</p> <!-- 按需修改 -->
+        </div>
+
+        <!-- 8. Modal (弹窗) 结构 -->
+        <div id="booking-modal-overlay" class="modal-overlay">
+            <div id="booking-modal" class="modal">
+                <div class="modal-content">
+                    <h2 class="modal-title">我的预约</h2>
+                    <div class="modal-details">
+                        <p><strong>场馆：</strong> <span id="modal-venue"></span></p>
+                        <p><strong>预约日期：</strong> <span id="modal-date"></span></p>
+                        <p><strong>预约时段：</strong> <span id="modal-time"></span></p>
+                        <p><strong>场地名称：</strong> <span id="modal-location"></span></p>
+                        <p><strong>预约编号：</strong> <span id="modal-booking-id"></span></p>
+                        <p><strong>费用：</strong> <span id="modal-price"></span></p>
+                    </div>
+                    <div class="modal-actions">
+                        <button id="modal-confirm-button" class="modal-button-confirm">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- end mobile-container -->
+
+    <script>
+        // JavaScript 保持不变，用于处理 Modal 弹出
+        document.addEventListener('DOMContentLoaded', function () {
+            const modalOverlay = document.getElementById('booking-modal-overlay');
+            const modalConfirmButton = document.getElementById('modal-confirm-button');
+            const bookingCards = document.querySelectorAll('.booking-card');
+
+            const modalVenue = document.getElementById('modal-venue');
+            const modalDate = document.getElementById('modal-date');
+            const modalTime = document.getElementById('modal-time');
+            const modalLocation = document.getElementById('modal-location');
+            const modalBookingId = document.getElementById('modal-booking-id');
+            const modalPrice = document.getElementById('modal-price');
+
+            function showModal(data) {
+                console.log("[企业微信开发助手] Debug: Populating modal with data:", data); // Debugging
+                modalVenue.textContent = data.venue || '-';
+                modalDate.textContent = data.date || '-';
+                modalTime.textContent = data.time || '-';
+                modalLocation.textContent = data.location || '-';
+                modalBookingId.textContent = data.bookingId || '-';
+                modalPrice.textContent = data.price || '-';
+                modalOverlay.classList.add('visible');
+            }
+
+            function hideModal() {
+                modalOverlay.classList.remove('visible');
+            }
+
+            bookingCards.forEach(card => {
+                card.addEventListener('click', function (event) {
+                    // 防止点击按钮时触发卡片的点击事件 (如果按钮在卡片内)
+                    if (event.target.closest('.card-actions button')) {
+                        console.log("[企业微信开发助手] Debug: Clicked on action button, preventing modal.");
+                        return;
+                    }
+
+                    const data = {
+                        venue: this.dataset.venue,
+                        date: this.dataset.date,
+                        time: this.dataset.time,
+                        location: this.dataset.location,
+                        bookingId: this.dataset.bookingId,
+                        price: this.dataset.price
+                    };
+                    showModal(data);
+                });
+            });
+
+            modalConfirmButton.addEventListener('click', hideModal);
+
+            modalOverlay.addEventListener('click', function (event) {
+                if (event.target === modalOverlay) {
+                    hideModal();
+                }
+            });
+
+            // Debugging: Check elements on load
+            console.log("[企业微信开发助手] Debug: Modal Overlay found:", modalOverlay);
+            console.log("[企业微信开发助手] Debug: Confirm Button found:", modalConfirmButton);
+            console.log("[企业微信开发助手] Debug: Booking Cards found:", bookingCards.length);
+            // 可以在这里添加对新元素的检查
+            console.log("[企业微信开发助手] Debug: Tab Bar found:", document.querySelector('.tab-bar'));
+            console.log("[企业微信开发助手] Debug: Filter Section found:", document.querySelector('.filter-section'));
+        });
+    </script>
+</body>
+
+</html>
