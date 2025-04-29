@@ -38,6 +38,7 @@
 
         /* --- 容器 --- */
         .mobile-container {
+            padding: 0 50px;
             max-width: 480px;
             margin: 0 auto;
             background-color: #f4f4f4;
@@ -694,10 +695,10 @@
         }
 
         .page-button.active-page {
-            background-color: #07c160;
+            background-color: #007d28;
             /* 激活状态绿色背景 */
             color: white;
-            border-color: #07c160;
+            border-color: #007d28;
             font-weight: bold;
         }
 
@@ -729,7 +730,7 @@
             margin: 0;
         }
 
-        /* --- 10. Modal (弹窗) 样式 --- */
+        /* --- 10. Modal (弹窗) 样式 (更新后) --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -744,10 +745,14 @@
             z-index: 999;
         }
 
+
         .modal {
             background-color: #fff;
             border-radius: 8px;
-            padding: 20px;
+            /* padding: 15px; */
+            /* <<< 移除或注释掉旧的 padding */
+            padding: 15px 5px 5px 15px;
+            /* <<< 1. 新 padding: 上15, 右5, 下5, 左15 */
             width: 85%;
             max-width: 400px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -758,77 +763,94 @@
             display: flex;
         }
 
+        /* 更新: Modal 标题 */
         .modal-title {
-            font-size: 18px;
-            /* 调整标题大小 */
-            font-weight: bold;
+            font-size: 20px;
+            /* 增大字号 */
+            font-weight: 500;
+            /* 加粗 (模拟黑体) */
             /* font-family: "黑体", SimHei, sans-serif; 移除特定字体 */
-            text-align: center;
-            /* 标题居中 */
-            margin-bottom: 20px;
+            text-align: left;
+            /* <<< 1. 标题左对齐 */
+            margin-bottom: 15px;
+            /* <<< 调整下边距 */
             color: #333;
-            padding-bottom: 15px;
-            /* 增加下边距 */
-            border-bottom: 1px solid #eee;
+            padding-bottom: 0;
+            /* <<< 移除内边距 */
+            border-bottom: none;
+            /* <<< 移除下划线 */
         }
 
         .modal-details p {
-            margin: 12px 0;
-            /* 调整行间距 */
+            margin: 10px 0;
+            /* <<< 调整行间距 */
             font-size: 14px;
             color: #555;
             line-height: 1.6;
             display: flex;
+            /* align-items: baseline; */
+            /* 可以尝试基线对齐，看效果 */
         }
 
+        /* 更新: Modal 详情标签 */
         .modal-details strong {
             color: #888;
-            /* 标签颜色调浅 */
             font-weight: normal;
             display: inline-block;
-            width: 75px;
-            /* 固定标签宽度 */
+            /* width: 75px; */
+            /* <<< 移除固定宽度 */
+            width: auto;
+            /* <<< 改为自动宽度 */
             flex-shrink: 0;
             margin-right: 8px;
-            /* 增加标签和内容间距 */
-            text-align: right;
-            /* 标签右对齐 */
+            text-align: left;
+            /* <<< 2. 标签左对齐 */
         }
 
         .modal-details span {
             flex-grow: 1;
+            /* 值区域占据剩余空间 */
             color: #333;
-            /* 内容颜色 */
         }
 
+        /* 更新: Modal 操作区域 */
         .modal-actions {
-            text-align: center;
-            /* 按钮居中 */
-            margin-top: 25px;
-            padding-top: 15px;
-            /* 按钮区域上边距 */
-            border-top: 1px solid #eee;
-            /* 加个上分割线 */
+            /* text-align: left; */
+            /* <<< 移除或注释掉 */
+            text-align: right;
+            /* <<< 3. 按钮靠右对齐 */
+            /* margin-top: 25px; */
+            /* <<< 移除或注释掉旧 margin */
+            margin-top: 20px;
+            /* <<< 4. 调整上边距 */
+            margin-bottom: 0;
+            /* <<< 5. 确保无下外边距 */
+            padding-top: 0;
+            border-top: none;
         }
 
+        /* Modal 确认按钮 */
         .modal-button-confirm {
-            background-color: #07c160;
+            /* 按钮本身样式通常不需要改动，位置由父容器text-align控制 */
+            background-color: #007d28;
+            /* 图片中颜色偏深绿 */
             color: white;
-            padding: 10px 40px;
-            /* 增大按钮 */
-            border-radius: 20px;
-            /* 圆角按钮 */
+            padding: 8px 25px;
+            border-radius: 6px;
             font-size: 15px;
             border: none;
             cursor: pointer;
-            width: 80%;
-            /* 按钮宽度 */
-            max-width: 200px;
+            width: auto;
+            display: inline-block;
+            /* 必须是 inline-block 或 inline 才能受 text-align 影响 */
         }
 
         .modal-button-confirm:hover {
-            background-color: #06ad56;
+            background-color: #006720;
+            /* 对应深绿的 hover 颜色 */
         }
+
+
 
         /* --- 辅助图标样式 (简单模拟) --- */
         .icon {
