@@ -40,7 +40,7 @@
         .mobile-container {
             max-width: 480px;
             margin: 0 auto;
-            background-color: #fff;
+            background-color: #f4f4f4;
             /* 容器主要背景改为白色 */
             min-height: 100vh;
             display: flex;
@@ -167,72 +167,82 @@
 
         .action-button.back-home {
             background-color: #007d28;
-            /* 中大绿 */
+            /* A brighter green, closer to the image */
+            /* If #007d28 is the required green, use that instead */
             color: white;
-            padding: 6px 12px;
-            /* 微调内边距 */
-            border-radius: 4px;
-            /* 调整圆角 */
+            /* Ensure text is white */
+            padding: 8px 14px;
+            /* Adjust padding for visual balance (more vertical) */
+            border-radius: 6px;
+            /* Rounded corners */
             font-size: 14px;
-            margin-right: 10px;
+            /* Keep text size or adjust if needed */
+            /* margin-right: 10px; */
+            /* No longer needed if the next element has margin-left */
             display: flex;
             align-items: center;
-            line-height: 1.2;
-            /* 调整行高 */
-            border: none;
-        }
-
-        .action-button.back-home .icon-home {
-            font-size: 16px;
-            /* 图标大小 */
-            margin-right: 4px;
-            /* 图标和文字间距 */
+            /* Vertically center icon and text */
             line-height: 1;
-            /* 实际小程序使用 iconfont 或 image */
+            /* Reset line height */
+            border: none;
+            cursor: pointer;
+            /* Add pointer cursor */
         }
 
-        .filter-dropdown {
+
+        /* Style the SVG icon inside back-home button */
+        .action-button.back-home .icon-home {
+            /* color: white; */
+            /* Not needed if SVG has fill="currentColor" and button has color:white */
+            width: 18px;
+            /* Explicit width for SVG */
+            height: 18px;
+            /* Explicit height for SVG */
+            margin-right: 5px;
+            /* Space between icon and text */
+            display: inline-block;
+            /* Or inline-flex */
+            vertical-align: middle;
+            /* Helps align with text if needed */
+        }
+
+        .appointment-management-label {
+            display: flex;
+            align-items: center;
+            color: #888888;
+            font-size: 14px;
+            margin-left: 15px;
+            cursor: default;
             flex-grow: 1;
             background-color: #f7f7f7;
-            /* 浅灰色背景 */
             border: 1px solid #e0e0e0;
-            /* 边框颜色 */
             border-radius: 4px;
             padding: 6px 10px;
-            /* 微调内边距 */
-            display: flex;
-            align-items: center;
-            font-size: 14px;
             color: #666;
         }
 
-        .filter-dropdown .icon {
+        .appointment-management-label .icon-appointment-schedule {
             margin-right: 6px;
-            font-size: 16px;
-            color: #888;
-            /* 图标颜色 */
-            /* 实际用 iconfont 或 image */
+            flex-shrink: 0;
         }
 
-        .filter-dropdown .text {
-            margin: 0 5px 0 0;
-            /* 调整文字右边距 */
+        .appointment-management-label .text {
+            /* 文字样式 */
         }
 
-        .filter-dropdown .icon-arrow-down {
+        .appointment-management-label .icon-arrow-down {
             margin-left: auto;
             font-size: 12px;
             color: #aaa;
-            /* 箭头颜色 */
         }
 
-        /* --- 4. 新增: Tab Bar --- */
+
+
         .tab-bar {
             display: flex;
             background-color: #fff;
             border-bottom: 1px solid #eee;
             padding: 0 15px;
-            /* 左右留白 */
         }
 
         .tab-item {
@@ -248,7 +258,6 @@
 
         .tab-item.active {
             color: #007d28;
-            /* 激活状态颜色 */
             font-weight: 500;
         }
 
@@ -270,59 +279,96 @@
         .filter-section {
             display: flex;
             padding: 10px 15px;
-            background-color: #f4f4f4;
-            /* 和内容区域背景一致 */
+            background-color: #f8f8f8;
             align-items: center;
             gap: 10px;
-            /* 元素间距 */
+            /* border-bottom: 1px solid #eee; */
         }
+
 
         .filter-button {
             display: flex;
             align-items: center;
+            /* 保持垂直居中 */
             padding: 6px 12px;
+            /* 保持基本内边距 */
             border-radius: 4px;
             font-size: 14px;
+            position: relative;
+            /* 添加相对定位，为标签定位做准备 */
         }
 
         .filter-button.date-filter {
             background-color: #007d28;
             /* 绿色背景 */
             color: white;
+            border: none;
+            /* 日期按钮通常不需要边框 */
         }
 
         .filter-button.date-filter .icon {
             margin-right: 5px;
             font-size: 16px;
-            /* 实际用 iconfont 或 image */
         }
 
+        /* 修改状态筛选按钮整体样式 */
         .filter-button.status-filter {
+            position: relative;
             background-color: #fff;
-            /* 白色背景 */
-            color: #666;
             border: 1px solid #e0e0e0;
+            padding: 8px 12px 6px 12px;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        /* 状态文本容器 - 关键修改 */
+        .status-text-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            /* 新增：占据全部可用宽度 */
+            padding-left: 4px;
+            /* 为"状态"标签留出空间 */
+        }
+
+        /* 保持"状态"标签的嵌入效果 */
+        .filter-button.status-filter .text-label {
+            position: absolute;
+            top: -16px;
+            left: 2px;
+            background-color: #fff;
+            padding: 0 4px;
+            font-size: 10px;
+            color: #999;
+            z-index: 1;
+            text-align: left;
+        }
+
+        /* 修改"已预约"文字样式 - 关键修改 */
+        .filter-button.status-filter .text-value {
+            margin-left: 0;
+            /* 移除左边距 */
+            color: #333;
             flex-grow: 1;
             /* 占据剩余空间 */
-            justify-content: space-between;
-            /* 文本和箭头分开 */
+            text-align: left;
+            padding-top: 2px;
+            padding-left: 2px;
+            /* 为"状态"标签留出空间 */
         }
 
-        .filter-button.status-filter .text-label {
-            font-size: 10px;
-            /* “状态”文字较小 */
-            color: #999;
-            margin-right: 5px;
-        }
-
-        .filter-button.status-filter .text-value {
-            /* 状态值样式 */
-        }
-
+        /* 调整箭头位置 */
         .filter-button.status-filter .icon-arrow-down {
+            margin-left: 8px;
             font-size: 12px;
             color: #aaa;
+            flex-shrink: 0;
         }
+
+
+
 
 
         /* --- 6. 内容区域 --- */
@@ -332,35 +378,45 @@
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            margin-bottom: 20px;
+            /* margin-bottom: 20px; */
         }
 
         .content-inner {
             padding: 15px;
+            /* 卡片列表区域与 content-box 边缘的内边距 */
+            background-color: #fff;
+            /* <<< 确保这个区域背景也是白色 */
         }
 
         /* 调整原有样式 */
         .content-area {
             background-color: #f4f4f4;
-            padding: 15px;
+            padding: 10px 15px;
             flex-grow: 1;
         }
 
         .tab-bar {
-            background-color: #f8f8f8;
+            display: flex;
+            background-color: #fff;
             border-bottom: 1px solid #eee;
-            padding: 0;
+            padding: 0 15px;
         }
 
         .filter-section {
-            background-color: #f8f8f8;
+            display: flex;
             padding: 10px 15px;
-            border-bottom: 1px solid #eee;
+            background-color: #fff;
+            /* <<< 筛选区背景白色 */
+            align-items: center;
+            gap: 10px;
+            /* border-bottom: 1px solid #eee; */
+            /* <<< 确保这行被移除或注释 */
         }
 
         /* 新增 */
 
         .content-area {
+            /* 这个 .content-area 样式块也可能需要合并 */
             background-color: #f4f4f4;
             /* 背景色 */
             padding: 10px 15px;
@@ -368,208 +424,240 @@
             flex-grow: 1;
         }
 
-        /* --- 7. 预订卡片 --- */
+        /* --- 7. 预订卡片 (修改后) --- */
+
+        /* booking-card-wrapper 保持不变 */
+        .booking-card-wrapper {
+            background-color: #fff;
+            border: 5px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+
+        /* booking-card 主要作为容器，内边距移到 wrapper 里 */
         .booking-card {
             background-color: #fff;
-            border-radius: 6px;
-            /* 轻微调整圆角 */
-            margin-bottom: 10px;
-            padding: 12px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-            /* 微调阴影 */
             cursor: pointer;
             transition: background-color 0.2s ease;
-            border: 1px solid #eee;
-            /* 添加一个细边框 */
+            /* 移除旧的 padding, border, radius, shadow, margin */
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            margin-bottom: 0;
+            box-shadow: none;
         }
 
         .booking-card:hover {
             background-color: #fafafa;
+            /* 保持悬停效果 */
         }
 
-        .card-header {
+        /* 新增: 内部布局容器 (Flex 分列) */
+        .card-layout-wrapper {
+            display: flex;
+            padding: 15px;
+            /* 将内边距应用在这里 */
+        }
+
+        /* 新增:左侧图标区域 */
+        .card-icon-area {
+            width: 25px;
+            /* 图标区域宽度 */
+            margin-right: 12px;
+            /* 与右侧内容间距 */
+            flex-shrink: 0;
+            /* 防止被压缩 */
+            display: flex;
+            /* 内部对齐图标 (如果需要) */
+            /* align-items: center; */
+            /* 垂直居中图标 - 根据视觉效果决定是否需要 */
+            align-items: flex-start;
+            /* 让图标顶部对齐 */
+            padding-top: 2px;
+            /* 微调使图标与标题顶部大致对齐 */
+        }
+
+        .card-main-icon {
+            /* 给左侧图标特定样式 */
+            width: 20px;
+            height: 20px;
+            color: #888888;
+            /* 图标颜色 */
+        }
+
+
+        /* 新增: 右侧内容区域 (Flex 列布局) */
+        .card-content-area {
+            flex-grow: 1;
+            /* 占据剩余宽度 */
+            display: flex;
+            flex-direction: column;
+            /* 内部元素垂直排列 */
+            min-width: 0;
+            /* 防止内容溢出时撑开布局 */
+        }
+
+        /* 原 card-header 样式 -> card-header-info */
+        .card-header-info {
             display: flex;
             align-items: center;
-            margin-bottom: 8px;
-            /* 减少底部间距 */
-            padding-bottom: 8px;
-            border-bottom: 1px solid #f0f0f0;
+            justify-content: space-between;
+            /* 让标题和状态两端对齐 */
+            margin-bottom: 10px;
+            /* 与分割线间距 */
+            /* 移除旧的 border-bottom */
         }
 
-        .card-header .icon-info {
-            width: 18px;
-            height: 18px;
-            /* 图标大小 */
-            background-color: #aaa;
-            /* 灰色背景 */
-            border-radius: 50%;
-            color: white;
-            font-size: 12px;
-            display: inline-flex;
-            /* 使用flex方便居中 */
-            align-items: center;
-            justify-content: center;
-            margin-right: 8px;
-            /* 右边距 */
-            flex-shrink: 0;
-            /* 防止被压缩 */
-            /* 实际用 iconfont 或 image */
-        }
-
-        .card-header .title {
-            font-size: 15px;
-            /* 调整标题大小 */
+        .card-header-info .title {
+            font-size: 16px;
+            /* 标题字体加大 */
             font-weight: 500;
-            /* 调整字重 */
             color: #333;
             flex-grow: 1;
-            margin-left: 0;
-            /* 移除左边距，靠图标 */
+            /* 允许标题伸展 */
+            margin-right: 8px;
+            /* 与状态徽章间距 */
             word-break: break-all;
-            /* 防止长标题溢出 */
         }
 
+        /* status-badge 样式保持不变 */
         .status-badge {
-            background-color: #e0f5e9;
-            /* 浅绿背景 */
+            background-color: #fff;
             color: #07c160;
-            /* 绿色文字 */
             font-size: 12px;
-            padding: 3px 8px;
-            /* 调整内边距 */
-            border-radius: 4px;
-            /* 轻微圆角 */
-            border: 1px solid #b3e6c7;
-            /* 绿色边框 */
+            padding: 3px 10px;
+            border-radius: 999px;
+            border: 1px solid #07c160;
             flex-shrink: 0;
-            /* 防止被压缩 */
-            margin-left: 8px;
-            /* 和标题间距 */
+            /* margin-left: 8px; */
+            /* 因为用了 space-between，不再需要 */
+            display: inline-block;
+            line-height: 1.4;
+            text-align: center;
         }
 
+        /* 新增: 分割线样式 */
+        .card-separator {
+            border: none;
+            /* 重置默认边框 */
+            border-top: 1px solid #f0f0f0;
+            /* 设置顶部边框作为分割线 */
+            margin: 0 0 10px 0;
+            /* 上下间距, 尤其是下边距 */
+            width: 100%;
+            /* 宽度撑满右侧内容区 */
+        }
+
+        /* card-details 样式基本保持不变 */
         .card-details {
-            font-size: 13px;
-            color: #666;
-            line-height: 1.8;
-            /* 增加行高 */
+            /* 可以移除 margin-top 如果 card-separator 有足够的 margin-bottom */
         }
 
         .detail-row {
             display: flex;
             align-items: center;
-            margin-bottom: 4px;
-            /* 减少行间距 */
+            margin-bottom: 6px;
+            /* 行间距微调 */
+            color: #666;
+            /* 详情文字颜色变深一点 */
+            font-size: 13px;
+            /* 详情字体大小微调 */
         }
 
-        .detail-row .icon {
+        .detail-row:last-child {
+            margin-bottom: 0;
+            /* 最后一行无下边距 */
+        }
+
+        .detail-row .icon,
+        .detail-icon {
             width: 16px;
-            /* 固定图标宽度 */
             height: 16px;
-            margin-right: 6px;
-            /* 图标和文字间距 */
-            color: #999;
-            /* 图标颜色 */
-            font-size: 14px;
-            /* 图标字号 */
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            margin-right: 8px;
+            /* 图标和文字间增加间距 */
+            color: #888888;
+            display: inline-block;
+            vertical-align: middle;
             flex-shrink: 0;
-            /* background-color: #eee; 临时占位 */
-            /* 实际用 iconfont 或 image */
         }
-
-        .icon-calendar::before {
-            content: '📅';
-        }
-
-        /* 示例：使用Emoji */
-        .icon-clock::before {
-            content: '🕒';
-        }
-
-        .icon-location::before {
-            content: '📍';
-        }
-
-        .icon-group::before {
-            content: '👥';
-        }
-
 
         .booking-id {
-            color: #999;
-            font-size: 12px;
-            /* 编号字体小一点 */
-            margin-right: 10px;
+            /* color: #999; */
+            /* <<< 移除或注释掉灰色 */
+            color: #fa9d3b;
+            /* <<< 1. 改为橙色 */
+            font-weight: 500;
+            /* <<< 2. 添加字重 */
+            font-size: 13px;
+            /* 保持字体大小 */
+            margin-right: 8px;
+            /* <<< 3. 调整与价格的间距 */
         }
 
+        /* 定位到 .price 样式 */
         .price {
             color: #fa9d3b;
-            /* 橙色价格 */
+            /* 保持橙色 */
             font-weight: 500;
+            /* 确保字重 */
             font-size: 13px;
+            /* 保持字体大小 */
+            /* margin-left: auto; */
+            /* <<< 4. 移除或注释掉这行，不再靠右 */
         }
 
-        /* 时间行特殊处理，图标和文本间距 */
-        .detail-row.time-row span:not(.icon) {
+
+
+        /* 时间行特殊处理 */
+        .detail-row.time-row span {
             margin-right: 5px;
-            /* 日期和时间文本间距 */
         }
 
-        .detail-row.time-row .icon-clock {
+        .detail-row.time-row .icon-clock-svg {
+            /* 直接使用类名 */
             margin-left: 15px;
-            /* 时间图标和日期文本的间距 */
         }
 
-        .participants-row {
-            margin-top: 8px;
-            /* 参与者行与其他行间距 */
-        }
-
-        .participants-row span:not(.icon) {
-            margin-left: 2px;
-            /* “参与者:” 文本 */
-            color: #333;
-            /* 颜色深一点 */
+        .detail-row.time-row span:last-of-type {
+            /* 最后的时间文本无右边距 */
+            margin-right: 0;
         }
 
 
+        /* card-actions 样式调整 */
         .card-actions {
             display: flex;
-            justify-content: flex-end;
-            margin-top: 10px;
-            /* 调整与详情的间距 */
-            padding-top: 10px;
-            border-top: 1px solid #f0f0f0;
+            justify-content: flex-start;
+            /* 按钮靠左对齐 */
+            margin-top: 15px;
+            /* 与详情的间距 */
+            padding-top: 0;
+            /* 移除旧的顶部内边距 */
+            border-top: none;
+            /* 移除旧的分割线 */
         }
 
+        /* action-button 通用样式 */
         .action-button {
-            /* 通用操作按钮样式 */
             font-size: 13px;
-            padding: 4px 12px;
+            padding: 5px 18px;
+            /* 按钮内边距调整 */
             border-radius: 4px;
-            margin-left: 8px;
+            /* margin-left: 8px; */
+            /* 如果只有一个按钮，移除 */
+            margin-left: 0;
+            /* 确保第一个按钮靠左 */
             border: 1px solid;
             line-height: 1.5;
         }
 
-        .invite-button {
-            border-color: #07c160;
-            /* 绿色边框 */
-            color: #07c160;
-            /* 绿色文字 */
-            background-color: #fff;
-            /* 白色背景 */
-        }
-
+        /* cancel-button 样式保持不变 */
         .cancel-button {
             border-color: #ee0a24;
-            /* 红色边框 */
             color: #ee0a24;
-            /* 红色文字 */
             background-color: #fff;
-            /* 白色背景 */
         }
 
         /* --- 8. 分页 --- */
@@ -577,10 +665,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 15px 0;
-            background: #f4f4f4;
-            /* 和内容区背景一致 */
+            padding: 15px 0 5px 0;
+            /* 调整分页的上(减少和卡片间距)下内边距 */
+            background: #fff;
+            /* <<< 分页区域背景白色 */
+            /* border-top: 1px solid #eee; */
+            /* 如果分页和卡片之间不需要线，移除这个 */
         }
+
 
         .page-button {
             background-color: #fff;
@@ -637,9 +729,7 @@
             margin: 0;
         }
 
-        /* 底部文字不再特殊处理第一行 */
-
-        /* --- 10. Modal (弹窗) 样式 (基本保持不变) --- */
+        /* --- 10. Modal (弹窗) 样式 --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -746,12 +836,8 @@
             vertical-align: middle;
         }
 
-        .icon-filter::before {
-            content: '🔧';
-            font-size: 14px;
-        }
-
-        /* 示例 */
+        /* .icon-filter::before { content: '🔧'; font-size: 14px; }  */
+        /* 移除了旧的 filter 图标 */
         .icon-info::before {
             content: '!';
             color: white;
@@ -759,20 +845,15 @@
             font-size: 12px;
         }
 
-        /* 示例 */
         .icon-back::before {
             content: '<';
             font-size: 20px;
         }
 
-        /* 示例 */
         .icon-menu::before {
             content: '⋮';
             font-size: 20px;
         }
-
-        /* 示例 */
-        /* 实际项目中建议使用 iconfont 或 SVG */
     </style>
 </head>
 
@@ -803,36 +884,49 @@
         <!-- 3. 操作栏 -->
         <div class="action-bar">
             <button class="action-button back-home">
-                <span class="icon icon-home">🏠</span> 返回
+                <svg class="icon icon-home" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                    width="18" height="18">
+                    <path fill-rule="evenodd"
+                        d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z"
+                        clip-rule="evenodd" />
+                </svg>
+                返回
             </button>
-            <div class="filter-dropdown">
-                <span class="icon icon-filter"></span>
+
+            <!-- ****** START: 修改的部分 ****** -->
+            <!-- 移除了原来的 filter-dropdown div -->
+            <!-- 添加了新的“预约管理”标签 -->
+            <div class="appointment-management-label">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"
+                    class="icon icon-appointment-schedule" aria-hidden="true">
+                    <!-- 1. 文档/列表部分 (使用填充的矩形模拟粗线条) -->
+                    <g fill="currentColor">
+                        <!-- 参数说明：x, y, width, height, rx (圆角半径) -->
+                        <!-- 调整 y 值控制线条垂直位置, width 控制长度, height 控制粗细 -->
+                        <rect x="4" y="5" width="16" height="2.5" rx="0.5" />
+                        <rect x="4" y="9.5" width="16" height="2.5" rx="0.5" />
+                        <!-- 底部线条需要短一点，为时钟留出空间 -->
+                        <rect x="4" y="14" width="11" height="2.5" rx="0.5" />
+                    </g>
+                    <!-- 2. 时钟部分叠加在右下角 -->
+                    <!-- 时钟背景圆 (白色填充以遮挡下方线条, 当前颜色描边) -->
+                    <!-- cx, cy 为圆心坐标, r 为半径 -->
+                    <circle cx="17.5" cy="16.5" r="5.5" fill="#FFFFFF" stroke="currentColor" stroke-width="1.5" />
+                    <!-- 时钟指针 (当前颜色描边) -->
+                    <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                        <!-- 分针 (指向 12 点方向): 从圆心(17.5, 16.5) 向上 -->
+                        <line x1="17.5" y1="16.5" x2="17.5" y2="13" />
+                        <!-- 时针 (指向 3 点方向): 从圆心(17.5, 16.5) 向右 -->
+                        <line x1="17.5" y1="16.5" x2="20.5" y2="16.5" />
+                    </g>
+                </svg>
+
                 <span class="text">预约管理</span>
-                <span class="icon icon-arrow-down">▼</span>
+                <span class="icon-arrow-down">▼</span>
             </div>
+            <!-- ****** END: 修改的部分 ****** -->
+
         </div>
-
-        <!-- 4. 新增: Tab Bar -->
-        <!-- <div class="tab-bar">
-            <div class="tab-item active">我的预约</div>
-            <div class="tab-item">我的邀请</div>
-            <div class="tab-item">我的排队</div>
-        </div> -->
-
-        <!-- 5. 新增: 筛选区域 -->
-        <!-- <div class="filter-section">
-            <button class="filter-button date-filter">
-                <span class="icon">📅</span>
-                <span>预约日期</span>
-            </button>
-            <div class="filter-button status-filter">
-                <div>
-                    <span class="text-label">状态</span>
-                    <span class="text-value">已预约</span>
-                </div>
-                <span class="icon icon-arrow-down">▼</span>
-            </div>
-        </div> -->
 
 
         <!-- 6. 内容区域 -->
@@ -849,11 +943,21 @@
                 <!-- 2. 筛选区域 -->
                 <div class="filter-section">
                     <button class="filter-button date-filter">
-                        <span class="icon">📅</span>
+                        <!-- 使用 SVG 替换原来的 Emoji 图标 -->
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                            width="18" height="18" aria-hidden="true">
+                            <!-- 日历外框和顶部横线/环 -->
+                            <path
+                                d="M16 4H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-1 2v1H5V6h10zm-7 2h2v-1H8v1zm8 8H4V8h12v8z" />
+                            <!-- 顶部小竖线 (模拟日历环) -->
+                            <path d="M7 3v2h1V3H7zm5 0v2h1V3h-1z" />
+                            <!-- 中间的方块 -->
+                            <rect x="6.5" y="10.5" width="3" height="3" rx="0.5" />
+                        </svg>
                         <span>预约日期</span>
                     </button>
                     <div class="filter-button status-filter">
-                        <div>
+                        <div class="status-text-container">
                             <span class="text-label">状态</span>
                             <span class="text-value">已预约</span>
                         </div>
@@ -863,43 +967,104 @@
 
                 <!-- 3. 内容部分 -->
                 <div class="content-inner">
-                    <!-- 预订卡片 1 -->
-                    <div class="booking-card" data-venue="南校园新体育馆乒乓球室" data-date="2025年4月30日" data-time="09:00 - 10:00"
-                        data-location="南校园新体育馆乒乓球室-场地1" data-booking-id="#RB-VT5P0FF2ET" data-price="运动时 ¥5">
-                        <div class="card-header">
-                            <span class="icon icon-info">!</span>
-                            <span class="title">南校园新体育馆乒乓球室</span>
-                            <span class="status-badge">已预约</span>
-                        </div>
-                        <div class="card-details">
-                            <div class="detail-row">
-                                <span class="booking-id">#RB-VT5P0FF2ET</span>
-                                <span class="price">运动时 ¥5</span>
-                            </div>
-                            <div class="detail-row time-row">
-                                <span class="icon icon-calendar"></span><span>2025年4月30日</span>
-                                <span class="icon icon-clock"></span><span>09:00 - 10:00</span>
-                            </div>
-                            <div class="detail-row">
-                                <span class="icon icon-location"></span><span>南校园新体育馆乒乓球室-场地1</span>
-                            </div>
-                            <div class="detail-row participant-row">
-                                <span class="icon icon-group"></span><span>参与者:</span>
-                            </div>
-                        </div>
-                        <div class="card-actions">
-                            <button class="action-button invite-button">邀请</button>
-                            <button class="action-button cancel-button">取消</button>
-                        </div>
-                    </div>
 
-                    <!-- 分页 -->
+                    <!-- 新增: 包裹卡片的容器 (保持不变) -->
+                    <div class="booking-card-wrapper">
+                        <!-- ======== 开始: 修改后的 booking-card 结构 ======== -->
+                        <div class="booking-card" data-venue="北校园健身房" data-date="2025年4月28日" data-time="18:00 - 20:00"
+                            data-location="北校园健身房-场地1" data-booking-id="#RB-B805AT52XQ" data-price="运动时 ¥5">
+
+                            <div class="card-layout-wrapper"> <!-- 1. 新增: Flex 容器用于分列 -->
+
+                                <!-- 1.1 左侧图标区域 -->
+                                <div class="card-icon-area">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20"
+                                        <!-- 图标稍大一点? -->
+                                        class="icon card-main-icon" aria-hidden="true"> <!-- 使用新类名 card-main-icon -->
+                                        <circle cx="10" cy="10" r="8.5" stroke="#888888" stroke-width="1.5"
+                                            fill="none" />
+                                        <!-- 使用 path 绘制更清晰的感叹号 -->
+                                        <path d="M10 5.5 a0.75 0.75 0 0 1 1.5 0v5a0.75 0.75 0 0 1 -1.5 0v-5z"
+                                            fill="#888888" />
+                                        <circle cx="10" cy="13.5" r="1" fill="#888888" />
+                                    </svg>
+                                </div>
+
+                                <!-- 1.2 右侧内容区域 (包含头部、分割线、详情、操作) -->
+                                <div class="card-content-area">
+
+                                    <!-- 1.2.1 头部信息 (标题 + 状态) -->
+                                    <div class="card-header-info"> <!-- 新类名 -->
+                                        <span class="title">北校园健身房</span>
+                                        <span class="status-badge">已预约</span>
+                                    </div>
+
+                                    <!-- 1.2.2 分割线 -->
+                                    <hr class="card-separator" />
+
+                                    <!-- 1.2.3 详情信息区域 (保持不变的内部结构) -->
+                                    <div class="card-details">
+                                        <div class="detail-row">
+                                            <span class="booking-id">#RB-B805AT52XQ</span>
+                                            <span class="price">运动时 ¥5</span>
+                                        </div>
+                                        <div class="detail-row time-row">
+                                            <!-- 日历图标 SVG -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="16"
+                                                height="16" class="icon detail-icon" aria-hidden="true">
+                                                <g fill="none" stroke="currentColor" stroke-width="1.5">
+                                                    <rect x="3" y="4" width="14" height="13" rx="1" />
+                                                </g>
+                                                <g fill="currentColor">
+                                                    <rect x="6" y="2.5" width="1.5" height="3" rx="0.5" />
+                                                    <rect x="12.5" y="2.5" width="1.5" height="3" rx="0.5" />
+                                                    <rect x="3" y="8" width="14" height="1.5" />
+                                                    <rect x="6" y="10.5" width="3" height="3" rx="0.5" />
+                                                </g>
+                                            </svg>
+                                            <span>2025年4月28日</span>
+                                            <!-- 时钟图标 SVG -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="16"
+                                                height="16" class="icon detail-icon icon-clock-svg" aria-hidden="true">
+                                                <circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor"
+                                                    stroke-width="1.5" />
+                                                <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                                                    <line x1="10" y1="10" x2="10" y2="5.5" />
+                                                    <line x1="10" y1="10" x2="13.5" y2="10" />
+                                                </g>
+                                            </svg>
+                                            <span>18:00 - 20:00</span>
+                                        </div>
+                                        <div class="detail-row">
+                                            <!-- 定位图标 SVG -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="16"
+                                                height="16" class="icon detail-icon" aria-hidden="true">
+                                                <path fill="currentColor"
+                                                    d="M10,18 C6,14 3,11.2 3,7.5 C3,4 6,1 10,1 C14,1 17,4 17,7.5 C17,11.2 14,14 10,18 Z" />
+                                                <circle cx="10" cy="7.5" r="1.8" fill="#FFFFFF" />
+                                            </svg>
+                                            <span>北校园健身房-场地1</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- 1.2.4 操作按钮区域 -->
+                                    <div class="card-actions">
+                                        <button class="action-button cancel-button">取消</button>
+                                    </div>
+                                </div> <!-- End card-content-area -->
+                            </div> <!-- End card-layout-wrapper -->
+                        </div>
+                        <!-- ======== 结束: 修改后的 booking-card 结构 ======== -->
+                    </div> <!-- booking-card-wrapper 结束 -->
+
+                    <!-- 分页 (保持在 content-inner 内部，但在 wrappers 之后) -->
                     <div class="pagination">
                         <button class="page-button" disabled>&lt;</button>
                         <button class="page-button active-page">1</button>
                         <button class="page-button">&gt;</button>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -996,6 +1161,8 @@
             // 可以在这里添加对新元素的检查
             console.log("[企业微信开发助手] Debug: Tab Bar found:", document.querySelector('.tab-bar'));
             console.log("[企业微信开发助手] Debug: Filter Section found:", document.querySelector('.filter-section'));
+            // 检查新的预约管理标签
+            console.log("[企业微信开发助手] Debug: Appointment Management Label found:", document.querySelector('.appointment-management-label'));
         });
     </script>
 </body>
