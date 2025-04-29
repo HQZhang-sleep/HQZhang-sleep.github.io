@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+<!-- saved from url=(0045)file:///C:/Users/duanyixiao001/Desktop/3.html -->
 <html lang="zh-CN">
 
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>中山大学体育场馆预订系统 - 模拟</title>
     <style>
@@ -38,7 +40,7 @@
 
         /* --- 容器 --- */
         .mobile-container {
-            padding: 0 0px;
+            padding: 0 15px;
             max-width: 480px;
             margin: 0 auto;
             background-color: #f4f4f4;
@@ -66,6 +68,7 @@
             /* 可以固定在顶部 */
             top: 0;
             z-index: 10;
+            display: none;
         }
 
         .nav-bar .back-arrow {
@@ -92,14 +95,13 @@
 
         /* --- 2. 新增: 头部 Logo 和账户区域 --- */
         .header-section {
-            background-color: #007d28;
+            background-color: #287c33;
             /* 中大绿 */
             color: white;
             padding: 10px 15px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            /* 两端对齐 */
         }
 
         .header-section .logo-area {
@@ -107,36 +109,34 @@
             align-items: center;
         }
 
-        .header-section .logo {
+        /* .header-section .logo {
             width: 40px;
             height: 40px;
-            background-color: #fff;
-            /* 临时用白色背景表示Logo */
             border-radius: 50%;
             margin-right: 10px;
-            display: flex;
-            /* 用于可能放文字或图标 */
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            color: #007d28;
-            font-weight: bold;
-            /* 在实际小程序中，这里会用 <image> 标签 */
-        }
+            object-fit: contain;
+            vertical-align: middle;
+        } */
 
-        .header-section .university-name span {
+        /* .header-section .university-name span {
             display: block;
-            /* 让两行文字竖排 */
-        }
+        } */
 
-        .header-section .university-name .cn {
+        /* .header-section .university-name .cn {
             font-size: 16px;
             font-weight: bold;
-        }
+        } */
 
-        .header-section .university-name .en {
+        /* .header-section .university-name .en {
             font-size: 10px;
             opacity: 0.8;
+        } */
+        /* 为新的组合 Logo 图片添加样式 */
+        .header-section .combined-logo {
+            height: 35px;
+            width: auto;
+            max-width: 100%;
+            vertical-align: middle;
         }
 
         .header-section .account-actions button {
@@ -295,6 +295,7 @@
             /* 保持基本内边距 */
             border-radius: 4px;
             font-size: 14px;
+            margin-left: 6px;
             position: relative;
             /* 添加相对定位，为标签定位做准备 */
         }
@@ -318,6 +319,7 @@
             background-color: #fff;
             border: 1px solid #e0e0e0;
             padding: 8px 12px 6px 12px;
+            margin-right: 6px;
             display: flex;
             align-items: center;
             flex-grow: 1;
@@ -392,7 +394,7 @@
         /* 调整原有样式 */
         .content-area {
             background-color: #f4f4f4;
-            padding: 10px 15px;
+            padding: 15px 15px;
             flex-grow: 1;
         }
 
@@ -414,25 +416,15 @@
             /* <<< 确保这行被移除或注释 */
         }
 
-        /* 新增 */
-
-        .content-area {
-            /* 这个 .content-area 样式块也可能需要合并 */
-            background-color: #f4f4f4;
-            /* 背景色 */
-            padding: 10px 15px;
-            /* 内边距 */
-            flex-grow: 1;
-        }
-
         /* --- 7. 预订卡片 (修改后) --- */
 
-        /* booking-card-wrapper 保持不变 */
         .booking-card-wrapper {
             background-color: #fff;
-            border: 5px solid #e0e0e0;
+            border: 8px solid #e0e0e0;
             border-radius: 8px;
-            margin-bottom: 15px;
+            margin-left: 6px;
+            margin-right: 6px;
+            margin-bottom: 0px;
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
             overflow: hidden;
         }
@@ -442,7 +434,6 @@
             background-color: #fff;
             cursor: pointer;
             transition: background-color 0.2s ease;
-            /* 移除旧的 padding, border, radius, shadow, margin */
             padding: 0;
             border: none;
             border-radius: 0;
@@ -452,14 +443,11 @@
 
         .booking-card:hover {
             background-color: #fafafa;
-            /* 保持悬停效果 */
         }
 
-        /* 新增: 内部布局容器 (Flex 分列) */
         .card-layout-wrapper {
             display: flex;
             padding: 15px;
-            /* 将内边距应用在这里 */
         }
 
         /* 新增:左侧图标区域 */
@@ -891,11 +879,7 @@
         <!-- 2. 新增: 头部 Logo 和账户区域 -->
         <div class="header-section">
             <div class="logo-area">
-                <div class="logo">Logo</div> <!-- 替换为实际 logo -->
-                <div class="university-name">
-                    <span class="cn">中山大学</span>
-                    <span class="en">SUN YAT-SEN UNIVERSITY</span>
-                </div>
+                <img src="sysu.jpg" alt="中山大学 Logo 及名称" class="combined-logo">
             </div>
             <div class="account-actions">
                 <button>我的账号</button>
@@ -910,7 +894,7 @@
                     width="18" height="18">
                     <path fill-rule="evenodd"
                         d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z"
-                        clip-rule="evenodd" />
+                        clip-rule="evenodd"></path>
                 </svg>
                 返回
             </button>
@@ -925,21 +909,22 @@
                     <g fill="currentColor">
                         <!-- 参数说明：x, y, width, height, rx (圆角半径) -->
                         <!-- 调整 y 值控制线条垂直位置, width 控制长度, height 控制粗细 -->
-                        <rect x="4" y="5" width="16" height="2.5" rx="0.5" />
-                        <rect x="4" y="9.5" width="16" height="2.5" rx="0.5" />
+                        <rect x="4" y="5" width="16" height="2.5" rx="0.5"></rect>
+                        <rect x="4" y="9.5" width="16" height="2.5" rx="0.5"></rect>
                         <!-- 底部线条需要短一点，为时钟留出空间 -->
-                        <rect x="4" y="14" width="11" height="2.5" rx="0.5" />
+                        <rect x="4" y="14" width="11" height="2.5" rx="0.5"></rect>
                     </g>
                     <!-- 2. 时钟部分叠加在右下角 -->
                     <!-- 时钟背景圆 (白色填充以遮挡下方线条, 当前颜色描边) -->
                     <!-- cx, cy 为圆心坐标, r 为半径 -->
-                    <circle cx="17.5" cy="16.5" r="5.5" fill="#FFFFFF" stroke="currentColor" stroke-width="1.5" />
+                    <circle cx="17.5" cy="16.5" r="5.5" fill="#FFFFFF" stroke="currentColor" stroke-width="1.5">
+                    </circle>
                     <!-- 时钟指针 (当前颜色描边) -->
                     <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
                         <!-- 分针 (指向 12 点方向): 从圆心(17.5, 16.5) 向上 -->
-                        <line x1="17.5" y1="16.5" x2="17.5" y2="13" />
+                        <line x1="17.5" y1="16.5" x2="17.5" y2="13"></line>
                         <!-- 时针 (指向 3 点方向): 从圆心(17.5, 16.5) 向右 -->
-                        <line x1="17.5" y1="16.5" x2="20.5" y2="16.5" />
+                        <line x1="17.5" y1="16.5" x2="20.5" y2="16.5"></line>
                     </g>
                 </svg>
 
@@ -970,11 +955,12 @@
                             width="18" height="18" aria-hidden="true">
                             <!-- 日历外框和顶部横线/环 -->
                             <path
-                                d="M16 4H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-1 2v1H5V6h10zm-7 2h2v-1H8v1zm8 8H4V8h12v8z" />
+                                d="M16 4H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-1 2v1H5V6h10zm-7 2h2v-1H8v1zm8 8H4V8h12v8z">
+                            </path>
                             <!-- 顶部小竖线 (模拟日历环) -->
-                            <path d="M7 3v2h1V3H7zm5 0v2h1V3h-1z" />
+                            <path d="M7 3v2h1V3H7zm5 0v2h1V3h-1z"></path>
                             <!-- 中间的方块 -->
-                            <rect x="6.5" y="10.5" width="3" height="3" rx="0.5" />
+                            <rect x="6.5" y="10.5" width="3" height="3" rx="0.5"></rect>
                         </svg>
                         <span>预约日期</span>
                     </button>
@@ -1001,14 +987,14 @@
                                 <!-- 1.1 左侧图标区域 -->
                                 <div class="card-icon-area">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20"
-                                        <!-- 图标稍大一点? -->
-                                        class="icon card-main-icon" aria-hidden="true"> <!-- 使用新类名 card-main-icon -->
-                                        <circle cx="10" cy="10" r="8.5" stroke="#888888" stroke-width="1.5"
-                                            fill="none" />
+                                        <!--="" 图标稍大一点?="" --="">
+                                        class="icon card-main-icon" aria-hidden="true"&gt; <!-- 使用新类名 card-main-icon -->
+                                        <circle cx="10" cy="10" r="8.5" stroke="#888888" stroke-width="1.5" fill="none">
+                                        </circle>
                                         <!-- 使用 path 绘制更清晰的感叹号 -->
                                         <path d="M10 5.5 a0.75 0.75 0 0 1 1.5 0v5a0.75 0.75 0 0 1 -1.5 0v-5z"
-                                            fill="#888888" />
-                                        <circle cx="10" cy="13.5" r="1" fill="#888888" />
+                                            fill="#888888"></path>
+                                        <circle cx="10" cy="13.5" r="1" fill="#888888"></circle>
                                     </svg>
                                 </div>
 
@@ -1022,7 +1008,7 @@
                                     </div>
 
                                     <!-- 1.2.2 分割线 -->
-                                    <hr class="card-separator" />
+                                    <hr class="card-separator">
 
                                     <!-- 1.2.3 详情信息区域 (保持不变的内部结构) -->
                                     <div class="card-details">
@@ -1035,13 +1021,13 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="16"
                                                 height="16" class="icon detail-icon" aria-hidden="true">
                                                 <g fill="none" stroke="currentColor" stroke-width="1.5">
-                                                    <rect x="3" y="4" width="14" height="13" rx="1" />
+                                                    <rect x="3" y="4" width="14" height="13" rx="1"></rect>
                                                 </g>
                                                 <g fill="currentColor">
-                                                    <rect x="6" y="2.5" width="1.5" height="3" rx="0.5" />
-                                                    <rect x="12.5" y="2.5" width="1.5" height="3" rx="0.5" />
-                                                    <rect x="3" y="8" width="14" height="1.5" />
-                                                    <rect x="6" y="10.5" width="3" height="3" rx="0.5" />
+                                                    <rect x="6" y="2.5" width="1.5" height="3" rx="0.5"></rect>
+                                                    <rect x="12.5" y="2.5" width="1.5" height="3" rx="0.5"></rect>
+                                                    <rect x="3" y="8" width="14" height="1.5"></rect>
+                                                    <rect x="6" y="10.5" width="3" height="3" rx="0.5"></rect>
                                                 </g>
                                             </svg>
                                             <span>2025年4月28日</span>
@@ -1049,10 +1035,10 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="16"
                                                 height="16" class="icon detail-icon icon-clock-svg" aria-hidden="true">
                                                 <circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor"
-                                                    stroke-width="1.5" />
+                                                    stroke-width="1.5"></circle>
                                                 <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-                                                    <line x1="10" y1="10" x2="10" y2="5.5" />
-                                                    <line x1="10" y1="10" x2="13.5" y2="10" />
+                                                    <line x1="10" y1="10" x2="10" y2="5.5"></line>
+                                                    <line x1="10" y1="10" x2="13.5" y2="10"></line>
                                                 </g>
                                             </svg>
                                             <span>18:00 - 20:00</span>
@@ -1062,8 +1048,9 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="16"
                                                 height="16" class="icon detail-icon" aria-hidden="true">
                                                 <path fill="currentColor"
-                                                    d="M10,18 C6,14 3,11.2 3,7.5 C3,4 6,1 10,1 C14,1 17,4 17,7.5 C17,11.2 14,14 10,18 Z" />
-                                                <circle cx="10" cy="7.5" r="1.8" fill="#FFFFFF" />
+                                                    d="M10,18 C6,14 3,11.2 3,7.5 C3,4 6,1 10,1 C14,1 17,4 17,7.5 C17,11.2 14,14 10,18 Z">
+                                                </path>
+                                                <circle cx="10" cy="7.5" r="1.8" fill="#FFFFFF"></circle>
                                             </svg>
                                             <span>北校园健身房-场地1</span>
                                         </div>
@@ -1081,7 +1068,7 @@
 
                     <!-- 分页 (保持在 content-inner 内部，但在 wrappers 之后) -->
                     <div class="pagination">
-                        <button class="page-button" disabled>&lt;</button>
+                        <button class="page-button" disabled="">&lt;</button>
                         <button class="page-button active-page">1</button>
                         <button class="page-button">&gt;</button>
                     </div>
@@ -1103,12 +1090,12 @@
                 <div class="modal-content">
                     <h2 class="modal-title">我的预约</h2>
                     <div class="modal-details">
-                        <p><strong>场馆：</strong> <span id="modal-venue"></span></p>
-                        <p><strong>预约日期：</strong> <span id="modal-date"></span></p>
-                        <p><strong>预约时段：</strong> <span id="modal-time"></span></p>
-                        <p><strong>场地名称：</strong> <span id="modal-location"></span></p>
-                        <p><strong>预约编号：</strong> <span id="modal-booking-id"></span></p>
-                        <p><strong>费用：</strong> <span id="modal-price"></span></p>
+                        <p><strong>场馆：</strong> <span id="modal-venue">北校园健身房</span></p>
+                        <p><strong>预约日期：</strong> <span id="modal-date">2025年4月28日</span></p>
+                        <p><strong>预约时段：</strong> <span id="modal-time">18:00 - 20:00</span></p>
+                        <p><strong>场地名称：</strong> <span id="modal-location">北校园健身房-场地1</span></p>
+                        <p><strong>预约编号：</strong> <span id="modal-booking-id">#RB-B805AT52XQ</span></p>
+                        <p><strong>费用：</strong> <span id="modal-price">运动时 ¥5</span></p>
                     </div>
                     <div class="modal-actions">
                         <button id="modal-confirm-button" class="modal-button-confirm">确认</button>
@@ -1187,6 +1174,8 @@
             console.log("[企业微信开发助手] Debug: Appointment Management Label found:", document.querySelector('.appointment-management-label'));
         });
     </script>
+
+
 </body>
 
 </html>
