@@ -40,7 +40,7 @@
 
         /* --- 容器 --- */
         .mobile-container {
-            padding: 0 0px;
+            padding: 0 0x;
             max-width: 480px;
             margin: 0 auto;
             background-color: #f4f4f4;
@@ -544,15 +544,71 @@
             /* 可以移除 margin-top 如果 card-separator 有足够的 margin-bottom */
         }
 
-        .detail-row {
+        .time-info {
+            display: block;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
+        }
+
+        .time-info .icon {
+            margin-right: 8px;
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .detail-row {
+            display: flex;
+            /* 使用flex布局 */
+            align-items: center;
+            /* 垂直居中 */
+            margin-bottom: 8px;
+            /* 保持行间距 */
+            width: 100%;
+            /* 确保宽度填满 */
+        }
+
+        /* 这个是包含 日期/时间/地点 的容器 */
+        .booking-card .card-details .detail-row.time-row {
+            display: flex;
+            /* 使用 Flexbox */
+            flex-direction: column;
+            /* !!! 关键：设置主轴方向为垂直 */
+            align-items: flex-start;
+            /* 子项在交叉轴（水平）上左对齐 */
+            margin-top: 8px;
+            /* 与上一行(预约编号)的间距 */
+            margin-bottom: 0;
+            /* 这个容器本身不需要底部外边距 (由内部 time-info 控制) */
+            width: 100%;
+            /* 确保占满宽度 */
+        }
+
+        /* 这个是每一行信息 (图标 + 文字) */
+        .booking-card .card-details .detail-row.time-row .time-info {
+            display: flex;
+            /* 内部依然使用 flex 保持图标和文字水平排列 */
+            align-items: center;
+            /* 垂直居中图标和文字 */
             margin-bottom: 6px;
-            /* 行间距微调 */
-            color: #666;
-            /* 详情文字颜色变深一点 */
-            font-size: 13px;
-            /* 详情字体大小微调 */
+            /* !!! 关键：设置每行之间的垂直间距 */
+            width: 100%;
+            /* 确保每行占满可用宽度 */
+        }
+
+        /* 移除最后一行信息的底部外边距 */
+        .booking-card .card-details .detail-row.time-row .time-info:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 确保图标和文字之间的间距 (应该已存在) */
+        .booking-card .card-details .detail-row.time-row .time-info .icon {
+            margin-right: 8px;
+            /* 图标和文字的间距 */
+            flex-shrink: 0;
+            /* 防止图标被压缩 */
+            /* 可能需要调整 width/height 或 vertical-align，根据实际效果 */
         }
 
         .detail-row:last-child {
@@ -595,23 +651,6 @@
             /* 保持字体大小 */
             /* margin-left: auto; */
             /* <<< 4. 移除或注释掉这行，不再靠右 */
-        }
-
-
-
-        /* 时间行特殊处理 */
-        .detail-row.time-row span {
-            margin-right: 5px;
-        }
-
-        .detail-row.time-row .icon-clock-svg {
-            /* 直接使用类名 */
-            margin-left: 15px;
-        }
-
-        .detail-row.time-row span:last-of-type {
-            /* 最后的时间文本无右边距 */
-            margin-right: 0;
         }
 
 
@@ -979,8 +1018,8 @@
                     <!-- 新增: 包裹卡片的容器 (保持不变) -->
                     <div class="booking-card-wrapper">
                         <!-- ======== 开始: 修改后的 booking-card 结构 ======== -->
-                        <div class="booking-card" data-venue="北校园健身房" data-date="2025年4月28日" data-time="18:00 - 20:00"
-                            data-location="北校园健身房-场地1" data-booking-id="#RB-B805AT52XQ" data-price="运动时 ¥5">
+                        <div class="booking-card" data-venue="深圳校区健身房" data-date="2025年5月4日" data-time="18:00 - 20:00"
+                            data-location="深圳校区健身房-场地1" data-booking-id="#RB-B805AT52XQ" data-price="运动时 ¥5">
 
                             <div class="card-layout-wrapper"> <!-- 1. 新增: Flex 容器用于分列 -->
 
@@ -1003,7 +1042,7 @@
 
                                     <!-- 1.2.1 头部信息 (标题 + 状态) -->
                                     <div class="card-header-info"> <!-- 新类名 -->
-                                        <span class="title">北校园健身房</span>
+                                        <span class="title">深圳校区健身房</span>
                                         <span class="status-badge">已预约</span>
                                     </div>
 
@@ -1017,42 +1056,49 @@
                                             <span class="price">运动时 ¥5</span>
                                         </div>
                                         <div class="detail-row time-row">
-                                            <!-- 日历图标 SVG -->
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="16"
-                                                height="16" class="icon detail-icon" aria-hidden="true">
-                                                <g fill="none" stroke="currentColor" stroke-width="1.5">
-                                                    <rect x="3" y="4" width="14" height="13" rx="1"></rect>
-                                                </g>
-                                                <g fill="currentColor">
-                                                    <rect x="6" y="2.5" width="1.5" height="3" rx="0.5"></rect>
-                                                    <rect x="12.5" y="2.5" width="1.5" height="3" rx="0.5"></rect>
-                                                    <rect x="3" y="8" width="14" height="1.5"></rect>
-                                                    <rect x="6" y="10.5" width="3" height="3" rx="0.5"></rect>
-                                                </g>
-                                            </svg>
-                                            <span>2025年4月28日</span>
-                                            <!-- 时钟图标 SVG -->
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="16"
-                                                height="16" class="icon detail-icon icon-clock-svg" aria-hidden="true">
-                                                <circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor"
-                                                    stroke-width="1.5"></circle>
-                                                <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-                                                    <line x1="10" y1="10" x2="10" y2="5.5"></line>
-                                                    <line x1="10" y1="10" x2="13.5" y2="10"></line>
-                                                </g>
-                                            </svg>
-                                            <span>18:00 - 20:00</span>
-                                        </div>
-                                        <div class="detail-row">
-                                            <!-- 定位图标 SVG -->
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="16"
-                                                height="16" class="icon detail-icon" aria-hidden="true">
-                                                <path fill="currentColor"
-                                                    d="M10,18 C6,14 3,11.2 3,7.5 C3,4 6,1 10,1 C14,1 17,4 17,7.5 C17,11.2 14,14 10,18 Z">
-                                                </path>
-                                                <circle cx="10" cy="7.5" r="1.8" fill="#FFFFFF"></circle>
-                                            </svg>
-                                            <span>北校园健身房-场地1</span>
+
+                                            <div class="time-info">
+                                                <!-- 日历图标 SVG -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="16"
+                                                    height="16" class="icon detail-icon" aria-hidden="true">
+                                                    <g fill="none" stroke="currentColor" stroke-width="1.5">
+                                                        <rect x="3" y="4" width="14" height="13" rx="1"></rect>
+                                                    </g>
+                                                    <g fill="currentColor">
+                                                        <rect x="6" y="2.5" width="1.5" height="3" rx="0.5"></rect>
+                                                        <rect x="12.5" y="2.5" width="1.5" height="3" rx="0.5">
+                                                        </rect>
+                                                        <rect x="3" y="8" width="14" height="1.5"></rect>
+                                                        <rect x="6" y="10.5" width="3" height="3" rx="0.5"></rect>
+                                                    </g>
+                                                </svg>
+                                                <span>2025年4月28日</span>
+                                            </div>
+                                            <div class="time-info">
+                                                <!-- 时钟图标 SVG -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="16"
+                                                    height="16" class="icon detail-icon icon-clock-svg"
+                                                    aria-hidden="true">
+                                                    <circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor"
+                                                        stroke-width="1.5"></circle>
+                                                    <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                                                        <line x1="10" y1="10" x2="10" y2="5.5"></line>
+                                                        <line x1="10" y1="10" x2="13.5" y2="10"></line>
+                                                    </g>
+                                                </svg>
+                                                <span>18:00 - 20:00</span>
+                                            </div>
+                                            <div class="time-info">
+                                                <!-- 定位图标 SVG -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="16"
+                                                    height="16" class="icon detail-icon" aria-hidden="true">
+                                                    <path fill="currentColor"
+                                                        d="M10,18 C6,14 3,11.2 3,7.5 C3,4 6,1 10,1 C14,1 17,4 17,7.5 C17,11.2 14,14 10,18 Z">
+                                                    </path>
+                                                    <circle cx="10" cy="7.5" r="1.8" fill="#FFFFFF"></circle>
+                                                </svg>
+                                                <span>深圳校区健身房-场地1</span>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -1090,10 +1136,10 @@
                 <div class="modal-content">
                     <h2 class="modal-title">我的预约</h2>
                     <div class="modal-details">
-                        <p><strong>场馆：</strong> <span id="modal-venue">北校园健身房</span></p>
-                        <p><strong>预约日期：</strong> <span id="modal-date">2025年4月28日</span></p>
+                        <p><strong>场馆：</strong> <span id="modal-venue">深圳校区健身房</span></p>
+                        <p><strong>预约日期：</strong> <span id="modal-date">2025年5月4日</span></p>
                         <p><strong>预约时段：</strong> <span id="modal-time">18:00 - 20:00</span></p>
-                        <p><strong>场地名称：</strong> <span id="modal-location">北校园健身房-场地1</span></p>
+                        <p><strong>场地名称：</strong> <span id="modal-location">深圳校区健身房-场地1</span></p>
                         <p><strong>预约编号：</strong> <span id="modal-booking-id">#RB-B805AT52XQ</span></p>
                         <p><strong>费用：</strong> <span id="modal-price">运动时 ¥5</span></p>
                     </div>
