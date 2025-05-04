@@ -738,25 +738,39 @@
         }
 
         /* --- 9. 底部信息 --- */
+        /* --- 9. 底部信息 (再次修改后) --- */
         .footer {
             background-color: #383934;
-            /* <<< 1. 改为黑色背景 */
             color: #FFFFFF;
-            /* <<< 2. 改为白色文字 */
             font-size: 12px;
-            /* 保持字体大小 */
-            padding: 15px;
-            /* <<< 3. 调整内边距 (上下左右均为 15px) */
+            /* 这是第二行及默认文字的大小 */
+            padding: 25px 15px;
+            /* <<< 1. 增加上下内边距，左右保持15px */
             text-align: left;
-            /* <<< 4. 改为左对齐 */
             line-height: 1.4;
-            /* <<< 5. 调整行高，使两行更紧凑 */
-            /* border-top: 1px solid #eee; <<< 6. 移除顶部边框 */
+            /* border-top: none; */
+            /* 保持移除状态 */
+        }
+
+        /* <<< 2. 新增规则：单独设置第一个 P 元素的样式 */
+        .footer p:first-child {
+            font-size: 16px;
+            /* 设置第一行文字稍大 */
+            margin-bottom: 5px;
+            /* 在第一行下方增加一点间距 */
+            font-weight: bold;
+            /* 可以选择性地加一点字重 */
         }
 
         .footer p {
-            margin: 0;
-            /* 保持段落间无外边距 */
+            margin-top: 0;
+            /* 确保段落没有顶部外边距 */
+            /* margin-bottom: 0; <<< 从这里移除，因为上面已经为 first-child 设置了 */
+        }
+
+        /* 确保最后一个 p 没有底部外边距（如果需要更精确控制） */
+        .footer p:last-child {
+            margin-bottom: 0;
         }
 
         /* --- 10. Modal (弹窗) 样式 (更新后) --- */
