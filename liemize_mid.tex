@@ -1,0 +1,45 @@
+% !TEX program = xelatex
+\documentclass{ctexart}
+
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{adjustbox} % 用于精确居中块
+
+\usepackage[useregional]{datetime2} % 如果是你的日记文件，请保留这一行
+
+\geometry{a4paper, margin=2cm}
+
+\title{梦开始的地方}
+\author{Yixiao Duan}
+\date{\today}
+
+% --- 修改这里的命令定义 ---
+% 这个版本让文本紧跟在选框后面，标准左对齐
+\newcommand{\todo}[1]{\item[\hbox to 1.5em{$\Box$\hss}] #1}
+\newcommand{\done}[1]{\item[\hbox to 1.5em{$\checkmark$\hss}] #1}
+
+\begin{document}
+
+\maketitle
+
+\section*{\DTMToday} % 如果是日记文件，请保留 \DTMToday 或手动输入日期
+
+% --- 使用 adjustbox 居中 minipage (minipage 内部是 itemize 列表) ---
+\begin{adjustbox}{center, fbox} % 你可以去掉 fbox 选项，如果你不想要那个边框了
+    \begin{minipage}{4cm} % 控制列表的总宽度，你可以按需调整
+        \begin{itemize}[label={}, leftmargin=*, nosep, itemsep=0pt, parsep=0pt, topsep=0pt]
+            \todo{去超市购买本周食材}
+            \done{完成项目A的阶段性报告}
+            \todo{回复重要的工作邮件}
+            \done{参加下午三点的在线会议}
+            \todo{整理书桌和工作区域}
+            % 你可以继续添加更多条目
+            \todo{测试条目一 (短)}
+            \done{测试条目二 (也很短)}
+        \end{itemize}
+    \end{minipage}
+\end{adjustbox}
+% --- 结束 adjustbox ---
+
+\end{document}
