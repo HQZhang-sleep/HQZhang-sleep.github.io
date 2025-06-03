@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交互式PowerShell防关闭指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei';
+        }
+
+        .filter-btn.active {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .method-card {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <header class="text-center mb-12">
+            <h1 class="text-3xl sm:text-4xl font-bold text-slate-900">如何防止 PowerShell 窗口意外关闭？</h1>
+            <p class="mt-4 text-lg text-slate-600">一个交互式指南，助你保护重要任务不被中断。</p>
+        </header>
+
+        <nav class="flex justify-center items-center gap-2 sm:gap-4 mb-10 flex-wrap">
+            <button data-filter="all"
+                class="filter-btn active font-semibold py-2 px-4 rounded-full transition-colors duration-300 bg-white shadow-sm hover:bg-blue-500 hover:text-white">全部</button>
+            <button data-filter="wsl"
+                class="filter-btn font-semibold py-2 px-4 rounded-full transition-colors duration-300 bg-white shadow-sm hover:bg-blue-500 hover:text-white">WSL
+                环境</button>
+            <button data-filter="windows"
+                class="filter-btn font-semibold py-2 px-4 rounded-full transition-colors duration-300 bg-white shadow-sm hover:bg-blue-500 hover:text-white">原生
+                Windows PowerShell</button>
+        </nav>
+
+        <main id="methods-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <div class="method-card bg-white p-6 rounded-xl shadow-md border border-slate-100" data-category="wsl">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-xl font-bold text-slate-900">1. 使用 `nohup`</h2>
+                    <span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">WSL</span>
+                </div>
+                <p class="text-slate-600 mb-4">如果你在 PowerShell 中通过 WSL 运行脚本，`nohup` 命令可以让脚本在后台持续运行，即使用户退出终端。</p>
+                <div class="relative">
+                    <pre
+                        class="bg-slate-100 text-slate-800 p-4 rounded-lg overflow-x-auto"><code class="language-bash">nohup python your_training_script.py &</code></pre>
+                    <button
+                        class="copy-btn absolute top-2 right-2 bg-slate-300 hover:bg-slate-400 text-slate-800 font-bold py-1 px-2 rounded text-xs">复制</button>
+                </div>
+                <div class="mt-4 text-sm text-slate-500">
+                    <p><strong class="font-semibold text-slate-600">说明:</strong> `&` 符号让命令在后台运行。</p>
+                    <p><strong class="font-semibold text-slate-600">日志:</strong> 输出会默认保存到当前目录下的 `nohup.out` 文件中。</p>
+                </div>
+            </div>
+
+            <div class="method-card bg-white p-6 rounded-xl shadow-md border border-slate-100" data-category="windows">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-xl font-bold text-slate-900">2. PowerShell 后台作业</h2>
+                    <span
+                        class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">Windows</span>
+                </div>
+                <p class="text-slate-600 mb-4">PowerShell 自身支持后台作业，任务会在后台继续运行，即使启动任务的窗口关闭。</p>
+                <div class="relative">
+                    <pre
+                        class="bg-slate-100 text-slate-800 p-4 rounded-lg overflow-x-auto"><code class="language-powershell">Start-Job -ScriptBlock { python your_training_script.py }</code></pre>
+                    <button
+                        class="copy-btn absolute top-2 right-2 bg-slate-300 hover:bg-slate-400 text-slate-800 font-bold py-1 px-2 rounded text-xs">复制</button>
+                </div>
+                <ul class="mt-4 text-sm text-slate-500 list-disc list-inside space-y-1">
+                    <li><strong class="font-semibold text-slate-600">查看作业:</strong> 使用 `Get-Job` 查看状态。</li>
+                    <li><strong class="font-semibold text-slate-600">获取输出:</strong> 使用 `Receive-Job -JobId <id>` 获取结果。
+                    </li>
+                    <li><strong class="font-semibold text-slate-600">保持运行:</strong> 关闭创建窗口后，作业仍会继续。</li>
+                </ul>
+            </div>
+
+            <div class="method-card bg-white p-6 rounded-xl shadow-md border border-slate-100" data-category="wsl">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-xl font-bold text-slate-900">3. 使用 `tmux` 或 `screen`</h2>
+                    <span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">WSL</span>
+                </div>
+                <p class="text-slate-600 mb-4">终端复用工具，可以创建持久会话，即使关闭终端或断开连接，程序也会继续运行。</p>
+                <div class="space-y-3 mt-4 text-sm">
+                    <div>
+                        <h3 class="font-semibold text-slate-700">Screen 用法:</h3>
+                        <ul class="list-disc list-inside text-slate-500">
+                            <li>启动: `screen`</li>
+                            <li>分离: `Ctrl+A` 然后 `D`</li>
+                            <li>重连: `screen -r`</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-slate-700">Tmux 用法:</h3>
+                        <ul class="list-disc list-inside text-slate-500">
+                            <li>启动: `tmux new -s <name>`</li>
+                            <li>分离: `Ctrl+B` 然后 `D`</li>
+                            <li>重连: `tmux attach -t <name>`</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="method-card bg-white p-6 rounded-xl shadow-md border border-slate-100" data-category="windows">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-xl font-bold text-slate-900">4. 修改窗口关闭行为</h2>
+                    <span
+                        class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">Windows</span>
+                </div>
+                <p class="text-slate-600 mb-4">有限的保护措施，不能完全阻止关闭，但可以增加一道屏障防止误触。</p>
+                <ul class="mt-4 text-sm text-slate-500 list-disc list-inside space-y-2">
+                    <li><strong class="font-semibold text-slate-600">禁用关闭按钮:</strong>
+                        <span class="block ml-4">可以使用如 AutoHotkey 这样的第三方工具编写脚本实现。</span>
+                    </li>
+                    <li><strong class="font-semibold text-slate-600">修改快捷方式属性:</strong>
+                        <span class="block ml-4">右键点击快捷方式 → 属性 → “选项”卡 → 取消勾选“快速编辑模式”和“插入模式”。</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="method-card bg-white p-6 rounded-xl shadow-md border border-slate-100" data-category="windows">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-xl font-bold text-slate-900">5. 运行脚本在关闭前提示</h2>
+                    <span
+                        class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">Windows</span>
+                </div>
+                <p class="text-slate-600 mb-4">编写脚本包裹训练命令，在退出时给出确认提示。但对直接点击“X”关闭按钮可能无效。</p>
+                <div class="relative">
+                    <pre class="bg-slate-100 text-slate-800 p-4 rounded-lg overflow-x-auto"><code class="language-powershell">while ($true) {
+    $input = Read-Host "输入 'exit' 关闭"
+    if ($input -eq 'exit') { break }
+}</code></pre>
+                    <button
+                        class="copy-btn absolute top-2 right-2 bg-slate-300 hover:bg-slate-400 text-slate-800 font-bold py-1 px-2 rounded text-xs">复制</button>
+                </div>
+                <p class="mt-4 text-sm text-slate-500"><strong class="font-semibold text-slate-600">局限性:</strong>
+                    主要依赖用户通过脚本逻辑退出，无法阻止系统强制关闭窗口。</p>
+            </div>
+
+            <div
+                class="method-card md:col-span-2 lg:col-span-3 bg-blue-50 p-6 rounded-xl shadow-md border border-blue-200">
+                <h2 class="text-2xl font-bold text-blue-900 mb-3">总结与建议</h2>
+                <div class="space-y-2 text-blue-800">
+                    <p><strong class="font-semibold">WSL 环境:</strong> 强烈推荐 <strong class="font-semibold">`tmux`</strong>
+                        或 <strong class="font-semibold">`screen`</strong>，它们提供了最可靠和灵活的持久会话管理。`nohup` 是一个更简单的选择。</p>
+                    <p><strong class="font-semibold">Windows PowerShell 环境:</strong> 推荐使用 <strong
+                            class="font-semibold">PowerShell 后台作业 (`Start-Job`)</strong>。这能确保即使主窗口关闭，脚本也能继续执行。</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const methodCards = document.querySelectorAll('.method-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const filter = button.dataset.filter;
+
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    methodCards.forEach(card => {
+                        const category = card.dataset.category;
+                        if (filter === 'all' || category === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            const copyButtons = document.querySelectorAll('.copy-btn');
+            copyButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const pre = button.previousElementSibling;
+                    const code = pre.querySelector('code').innerText;
+
+                    const textArea = document.createElement('textarea');
+                    textArea.value = code;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        button.textContent = '已复制!';
+                        setTimeout(() => {
+                            button.textContent = '复制';
+                        }, 2000);
+                    } catch (err) {
+                        console.error('无法复制', err);
+                        button.textContent = '失败';
+                    }
+                    document.body.removeChild(textArea);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
