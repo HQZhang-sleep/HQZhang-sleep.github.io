@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中山大学体育场馆预订系统</title>
+    <style>
+        /* --- 基本重置和全局样式 --- */
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            font-size: 16px;
+            /* 页面字体稍大以匹配图片 */
+            line-height: 1.5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        button {
+            border: none;
+            background: none;
+            padding: 0;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
+            line-height: inherit;
+            text-align: center;
+        }
+
+        /* --- 容器 --- */
+        .mobile-container {
+            padding: 0;
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: #f4f4f4;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* --- 头部 Logo 和账户区域 --- */
+        .header-section {
+            background-color: #287c33;
+            color: white;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-section .combined-logo {
+            height: 35px;
+            width: auto;
+            max-width: 100%;
+            vertical-align: middle;
+        }
+
+        .header-section .account-actions button {
+            background-color: #fff;
+            color: #007d28;
+            border-radius: 15px;
+            padding: 5px 15px;
+            font-size: 13px;
+            margin-left: 8px;
+            border: 1px solid #fff;
+        }
+
+        .header-section .account-actions button.logout {
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid #fff;
+        }
+
+        /* --- 操作栏 (返回/个人信息) --- */
+        .action-bar {
+            display: flex;
+            padding: 10px 15px;
+            background-color: #fff;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .action-button.back-home {
+            background-color: #007d28;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .action-button.back-home .icon-home {
+            width: 18px;
+            height: 18px;
+            margin-right: 5px;
+        }
+
+        .personal-info-label {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            margin-left: 15px;
+            flex-grow: 1;
+            background-color: #f7f7f7;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 8px 12px;
+            color: #333;
+            /* 字体颜色更深 */
+        }
+
+        .personal-info-label .icon-person {
+            margin-right: 6px;
+            flex-shrink: 0;
+            color: #666;
+        }
+
+        .personal-info-label .text {
+            flex-grow: 1;
+        }
+
+        .personal-info-label .icon-arrow-down {
+            margin-left: auto;
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        /* --- 内容区域 --- */
+        .content-area {
+            background-color: #f4f4f4;
+            padding: 15px;
+            flex-grow: 1;
+        }
+
+        .info-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            padding: 0 15px;
+            /* 左右内边距 */
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+            /* 上下内边距 */
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 15px;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-item .label {
+            color: #333;
+        }
+
+        .info-item .value {
+            color: #666;
+            font-weight: bold;
+        }
+
+        .footer {
+            background-color: #383934;
+            color: #FFFFFF;
+            font-size: 12px;
+            padding: 25px 15px;
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        .footer-header {
+            margin-bottom: 15px;
+        }
+
+        .footer-header .title {
+            font-size: 16px;
+            margin: 0 0 5px 0;
+            font-weight: bold;
+        }
+
+        .footer-header .address {
+            margin: 0;
+            color: #ccc;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+
+        .qr-section {
+            max-width: 400px;
+            width: 100%;
+            flex-shrink: 0;
+        }
+
+        .qr-code-wrapper {
+            background-color: white;
+            padding: 6px;
+            display: inline-block;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .qr-code-image {
+            width: 100px;
+            height: 100px;
+            display: block;
+        }
+
+        .contact-section {
+            flex-grow: 1;
+            min-width: 180px;
+        }
+
+        .contact-section p {
+            margin: 0 0 8px 0;
+        }
+
+        .contact-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .qr-section p {
+            word-break: break-all;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mobile-container">
+        <div class="header-section">
+            <div class="logo-area">
+                <img src="sysu.jpg" alt="中山大学 Logo 及名称" class="combined-logo" onerror="this.alt='中山大学 Logo'; this.src='https://placehold.co/150x35/287c33/FFFFFF?text=SYSULogo';">
+            </div>
+            <div class="account-actions">
+                <button>我的账号</button>
+                <button class="logout">登出</button>
+            </div>
+        </div>
+
+        <div class="action-bar">
+            <button class="action-button back-home">
+                <svg class="icon icon-home" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
+                    <path fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z" clip-rule="evenodd"></path>
+                </svg>
+                返回
+            </button>
+            <div class="personal-info-label">
+                <svg class="icon-person" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+                </svg>
+                <span class="text">我的个人信息</span>
+                <span class="icon-arrow-down">▼</span>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="info-card">
+                <div class="info-item">
+                    <span class="label">姓名</span>
+                    <span class="value">林桐旭</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">身份</span>
+                    <span class="value">学生</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">NetID</span>
+                    <span class="value">lintx6</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">学工号</span>
+                    <span class="value">21312109</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-header">
+                <p class="title">中山大学体育场馆预约系统</p>
+                <p class="address">广东省广州市海珠区新港西路135号</p>
+            </div>
+            <div class="footer-content">
+                <div class="qr-section">
+                    <p>填表申请补发运动时:</p>
+                    <div class="qr-code-wrapper">
+                        <img class="qr-code-image" src="erweima.png" alt="申请二维码">
+                    </div>
+                    <p>联系我们: zdtiyu@163.com | 体育场馆物业值班电话: 南校园: 020-84115839 | 北校园: 020-87335717 | 东校园: 020-39333766 | 深圳校区: 0755-23260027 | 珠海校区: 0756-3668220</p>
+                </div>
+                <div class="contact-section"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
