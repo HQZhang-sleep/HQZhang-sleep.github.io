@@ -460,6 +460,13 @@
         .footer-header .address {
             margin: 0;
             color: #ccc;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .footer-header .venue-phones {
+            margin: 0;
+            color: #ccc;
         }
 
         .footer-content {
@@ -467,16 +474,16 @@
             flex-wrap: wrap;
             gap: 20px;
             align-items: flex-start;
+            justify-content: flex-start;
         }
 
         .qr-section {
-            text-align: center;
-            flex-shrink: 0;
+            max-width: 400px;
+            width: 100%;
         }
 
         .qr-section p {
-            margin: 0 0 5px 0;
-            font-size: 13px;
+            word-break: break-all;
         }
 
         .qr-section .qr-code-wrapper {
@@ -509,7 +516,6 @@
             font-size: 16px;
             font-weight: bold;
         }
-
 
         .contact-section {
             flex-grow: 1;
@@ -599,6 +605,19 @@
         .modal-button-confirm:hover {
             background-color: #006720;
         }
+
+        .contact-bar {
+            background: #222;
+            color: #222;
+            max-width: 400px;
+            width: 100%;
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-top: 10px;
+            word-break: break-all;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 
@@ -665,7 +684,7 @@
                 </div>
                 <div class="content-inner">
                     <div class="booking-card-wrapper">
-                        <div class="booking-card" data-venue="深圳校区健身房" data-date="2025年6月2日" data-time="12:30 - 14:00" data-location="深圳校区健身房-场地1" data-booking-id="#RB-B805AT52XQ" data-price="运动时 ¥5">
+                        <div class="booking-card" data-venue="深圳校区健身房" data-date="2025年6月2日" data-time="12:30 - 14:00" data-location="深圳校区健身房-场地1" data-booking-id="#RB-EPQJIW4BG5" data-price="运动时 ¥5">
                             <div class="card-layout-wrapper">
                                 <div class="card-icon-area">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20" class="card-main-icon" aria-hidden="true">
@@ -682,7 +701,7 @@
                                     <hr class="card-separator">
                                     <div class="card-details">
                                         <div class="detail-row">
-                                            <span class="booking-id">#RB-B805AT52XQ</span>
+                                            <span class="booking-id">#RB-EPQJIW4BG5</span>
                                             <span class="price">运动时 ¥5</span>
                                         </div>
                                         <div class="detail-row time-row">
@@ -734,17 +753,11 @@
                 <div class="qr-section">
                     <p>填表申请补发运动时:</p>
                     <div class="qr-code-wrapper">
-                        <img class="qr-code-image" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=example_url&ecc=H" alt="申请二维码">
-                        <div class="qr-logo">T</div>
+                        <img class="qr-code-image" src="erweima.png" alt="申请二维码">
                     </div>
+                    <p>联系我们: zdtiyu@163.com | 体育场馆物业值班电话: 南校园: 020-84115839 | 北校园: 020-87335717 | 东校园: 020-39333766 | 深圳校区: 0755-23260027 | 珠海校区: 0756-3668220</p>
                 </div>
                 <div class="contact-section">
-                    <p>联系我们: zdtiyu@163.com | 体育场馆物业值班电话:</p>
-                    <p>南校园: 020-84115839</p>
-                    <p>北校园: 020-87335717</p>
-                    <p>东校园: 020-39333766</p>
-                    <p>深圳校区: 0755-23260027</p>
-                    <p>珠海校区: 0756-3668220</p>
                 </div>
             </div>
         </div>
@@ -839,6 +852,14 @@
             // Initial and periodic updates
             updateDateTimeDisplays();
             setInterval(updateDateTimeDisplays, 60000); // Update every minute
+
+            // “我的账号”按钮跳转
+            const myAccountBtn = document.querySelector('.account-actions button');
+            if (myAccountBtn) {
+                myAccountBtn.addEventListener('click', function() {
+                    window.location.href = 'account.html';
+                });
+            }
         });
     </script>
 
