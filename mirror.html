@@ -3,7 +3,6 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>中山大学体育场馆预订系统</title>
     <style>
@@ -12,11 +11,9 @@
             margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
             background-color: #f4f4f4;
-            /* 页面背景色 */
             color: #333;
             font-size: 14px;
             line-height: 1.5;
-            /* 默认行高 */
         }
 
         * {
@@ -32,19 +29,15 @@
             font-size: inherit;
             color: inherit;
             line-height: inherit;
-            /* 继承行高防止对齐问题 */
             text-align: center;
-            /* 默认按钮文本居中 */
         }
 
         /* --- 容器 --- */
         .mobile-container {
-            padding: 0 0px;
-            /* 修正：0x 应为 0px 或 0 */
+            padding: 0;
             max-width: 480px;
             margin: 0 auto;
             background-color: #f4f4f4;
-            /* 容器主要背景改为白色 */
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -52,61 +45,14 @@
             overflow-x: hidden;
         }
 
-        /* --- 1. 模拟导航栏 (与截图略有不同，截图为原生导航栏) --- */
-        .nav-bar {
-            background-color: #10aeff;
-            /* 截图中的蓝色 */
-            color: white;
-            padding: 10px 15px;
-            display: flex;
-            align-items: center;
-            font-size: 17px;
-            /* 稍微调整字体大小 */
-            font-weight: 500;
-            /* 调整字重 */
-            position: sticky;
-            /* 可以固定在顶部 */
-            top: 0;
-            z-index: 10;
-            display: none;
-        }
-
-        .nav-bar .back-arrow {
-            font-size: 24px;
-            margin-right: 10px;
-            font-weight: normal;
-            width: 25px;
-            /* 给返回箭头一个固定宽度 */
-        }
-
-        .nav-bar .title {
-            flex-grow: 1;
-            text-align: center;
-            /* 移除右边内边距，让标题居中更准确 */
-        }
-
-        .nav-bar .menu-dots {
-            font-size: 24px;
-            line-height: 1;
-            width: 25px;
-            /* 给菜单点一个固定宽度 */
-            text-align: right;
-        }
-
-        /* --- 2. 新增: 头部 Logo 和账户区域 --- */
+        /* --- 头部 Logo 和账户区域 --- */
         .header-section {
             background-color: #287c33;
-            /* 中大绿 */
             color: white;
             padding: 10px 15px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-        }
-
-        .header-section .logo-area {
-            display: flex;
-            align-items: center;
         }
 
         .header-section .combined-logo {
@@ -132,15 +78,13 @@
             border: 1px solid #fff;
         }
 
-        /* --- 3. 操作栏 (返回/预约管理) --- */
+        /* --- 操作栏 (返回/预约管理) --- */
         .action-bar {
             display: flex;
             padding: 10px 15px;
             background-color: #fff;
-            /* 背景改为白色 */
             align-items: center;
             border-bottom: 1px solid #eee;
-            /* 加一个底部分隔线 */
         }
 
         .action-button.back-home {
@@ -152,22 +96,17 @@
             display: flex;
             align-items: center;
             line-height: 1;
-            border: none;
-            cursor: pointer;
         }
 
         .action-button.back-home .icon-home {
             width: 18px;
             height: 18px;
             margin-right: 5px;
-            display: inline-block;
-            vertical-align: middle;
         }
 
         .appointment-management-label {
             display: flex;
             align-items: center;
-            color: #888888;
             font-size: 14px;
             margin-left: 15px;
             cursor: default;
@@ -188,6 +127,20 @@
             margin-left: auto;
             font-size: 12px;
             color: #aaa;
+        }
+
+        /* --- 内容区域 --- */
+        .content-area {
+            background-color: #f4f4f4;
+            padding: 15px;
+            flex-grow: 1;
+        }
+
+        .content-box {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
 
         .tab-bar {
@@ -224,16 +177,14 @@
             border-radius: 1px;
         }
 
-        /* --- 5. 新增: 筛选区域 --- */
+        /* --- 筛选区域 --- */
         .filter-section {
             display: flex;
             padding: 10px 15px;
             background-color: #fff;
-            /* 改为 #fff 以匹配 content-box */
             align-items: center;
             gap: 10px;
         }
-
 
         .filter-button {
             display: flex;
@@ -278,10 +229,8 @@
         .filter-button.status-filter .text-label {
             position: absolute;
             top: -16px;
-            /* 调整以避免与边框重叠，实际效果需测试 */
             left: 2px;
             background-color: #fff;
-            /* 与筛选区背景一致 */
             padding: 0 4px;
             font-size: 10px;
             color: #999;
@@ -290,7 +239,6 @@
         }
 
         .filter-button.status-filter .text-value {
-            margin-left: 0;
             color: #333;
             flex-grow: 1;
             text-align: left;
@@ -305,33 +253,15 @@
             flex-shrink: 0;
         }
 
-        /* --- 6. 内容区域 --- */
-        .content-box {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
+        /* --- 预订卡片 --- */
         .content-inner {
             padding: 15px;
-            background-color: #fff;
         }
 
-        .content-area {
-            background-color: #f4f4f4;
-            padding: 15px 15px;
-            flex-grow: 1;
-        }
-
-        /* --- 7. 预订卡片 (修改后) --- */
         .booking-card-wrapper {
             background-color: #fff;
             border: 8px solid #e0e0e0;
             border-radius: 8px;
-            margin-left: 6px;
-            margin-right: 6px;
-            margin-bottom: 0px;
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
             overflow: hidden;
         }
@@ -340,15 +270,6 @@
             background-color: #fff;
             cursor: pointer;
             transition: background-color 0.2s ease;
-            padding: 0;
-            border: none;
-            border-radius: 0;
-            margin-bottom: 0;
-            box-shadow: none;
-        }
-
-        .booking-card:hover {
-            background-color: #fafafa;
         }
 
         .card-layout-wrapper {
@@ -360,8 +281,6 @@
             width: 25px;
             margin-right: 12px;
             flex-shrink: 0;
-            display: flex;
-            align-items: flex-start;
             padding-top: 2px;
         }
 
@@ -389,7 +308,6 @@
             font-size: 16px;
             font-weight: 500;
             color: #333;
-            flex-grow: 1;
             margin-right: 8px;
             word-break: break-all;
         }
@@ -402,79 +320,44 @@
             border-radius: 999px;
             border: 1px solid #07c160;
             flex-shrink: 0;
-            display: inline-block;
-            line-height: 1.4;
-            text-align: center;
         }
 
         .card-separator {
             border: none;
             border-top: 1px solid #f0f0f0;
             margin: 0 0 10px 0;
-            width: 100%;
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .detail-row.time-row {
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 8px;
+            margin-bottom: 0;
         }
 
         .time-info {
-            /* 用于包裹日期、时间、地点每一项 */
             display: flex;
-            /* 改为 flex 使得图标和文字在同一行 */
             align-items: center;
-            /* 垂直居中图标和文字 */
             margin-bottom: 8px;
-            /* 和原来 detail-row 的行间距一致 */
         }
 
         .time-info:last-child {
             margin-bottom: 0;
         }
 
-        .time-info .icon {
-            /* time-info 内部的图标 */
-            margin-right: 8px;
-            font-size: 16px;
-            /* 保持与 detail-icon 一致 */
-            width: 16px;
-            /* 保持与 detail-icon 一致 */
-            height: 16px;
-            /* 保持与 detail-icon 一致 */
-            color: #888888;
-            /* 保持与 detail-icon 一致 */
-            text-align: center;
-            flex-shrink: 0;
-        }
-
-
-        .detail-row {
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
-            width: 100%;
-        }
-
-        /* 调整这个容器的样式 */
-        .booking-card .card-details .detail-row.time-row {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin-top: 8px;
-            margin-bottom: 0;
-            width: 100%;
-        }
-
-        /* 针对 detail-row 内部的图标，如果还有使用的话 */
-        .detail-row .icon,
         .detail-icon {
-            /* 合并 .detail-icon 到这里，如果它指代相同类型的图标 */
             width: 16px;
             height: 16px;
             margin-right: 8px;
             color: #888888;
-            display: inline-block;
-            /* 或者 flex-shrink: 0; 如果在 flex 容器内 */
-            vertical-align: middle;
             flex-shrink: 0;
         }
-
 
         .detail-row:last-child {
             margin-bottom: 0;
@@ -497,35 +380,27 @@
             display: flex;
             justify-content: flex-start;
             margin-top: 15px;
-            padding-top: 0;
-            border-top: none;
         }
 
         .action-button {
-            /* 通用 action-button，也适用于卡片内按钮 */
             font-size: 13px;
             padding: 5px 18px;
             border-radius: 4px;
-            margin-left: 0;
-            /* 卡片内按钮默认不加左边距，除非有多个 */
             border: 1px solid;
             line-height: 1.5;
         }
 
         .card-actions .action-button+.action-button {
             margin-left: 8px;
-            /* 多个按钮时才应用间距 */
         }
 
-
         .cancel-button {
-            /* 卡片内的取消按钮 */
             border-color: #ee0a24;
             color: #ee0a24;
             background-color: #fff;
         }
 
-        /* --- 8. 分页 --- */
+        /* --- 分页 --- */
         .pagination {
             display: flex;
             justify-content: center;
@@ -533,7 +408,6 @@
             padding: 15px 0 5px 0;
             background: #fff;
         }
-
 
         .page-button {
             background-color: #fff;
@@ -563,18 +437,18 @@
             background-color: #f8f8f8;
         }
 
-        /* --- 9. 底部信息 (已按图片样式修改) --- */
+        /* --- 底部信息 --- */
         .footer {
             background-color: #383934;
             color: #FFFFFF;
             font-size: 12px;
             padding: 25px 15px;
             text-align: left;
-            line-height: 1.6; /* 调整行高以获得更好可读性 */
+            line-height: 1.6;
         }
-        
+
         .footer-header {
-             margin-bottom: 15px;
+            margin-bottom: 15px;
         }
 
         .footer-header .title {
@@ -587,34 +461,59 @@
             margin: 0;
             color: #ccc;
         }
-        
+
         .footer-content {
             display: flex;
-            flex-wrap: wrap; /* 在小屏幕上允许换行 */
-            gap: 20px; /* 内容块之间的间隔 */
+            flex-wrap: wrap;
+            gap: 20px;
             align-items: flex-start;
         }
-        
+
         .qr-section {
             text-align: center;
             flex-shrink: 0;
         }
-        
+
         .qr-section p {
             margin: 0 0 5px 0;
             font-size: 13px;
         }
-        
-        .qr-section img {
+
+        .qr-section .qr-code-wrapper {
+            background-color: white;
+            padding: 6px; /* 留出白边 */
+            display: inline-block;
+            border-radius: 4px;
+            position: relative; /* 用于定位内部的Logo */
+        }
+
+        .qr-section .qr-code-image {
             width: 100px;
             height: 100px;
-            background-color: white; /* 模拟白底 */
             display: block;
         }
         
+        .qr-section .qr-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 25px; /* Logo 尺寸 */
+            height: 25px;
+            background-color: #00529C; /* 模拟的蓝色 */
+            border: 2px solid white; /* Logo周围的白色边框 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+
         .contact-section {
             flex-grow: 1;
-            min-width: 180px; /* 避免联系信息被过度挤压 */
+            min-width: 180px;
         }
 
         .contact-section p {
@@ -625,13 +524,7 @@
             margin-bottom: 0;
         }
 
-        .contact-section .contact-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-
-        /* --- 10. Modal (弹窗) 样式 --- */
+        /* --- Modal (弹窗) 样式 --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -644,7 +537,6 @@
             align-items: center;
             z-index: 999;
         }
-
 
         .modal {
             background-color: #fff;
@@ -666,8 +558,6 @@
             text-align: left;
             margin-bottom: 15px;
             color: #333;
-            padding-bottom: 0;
-            border-bottom: none;
         }
 
         .modal-details p {
@@ -681,8 +571,6 @@
         .modal-details strong {
             color: #888;
             font-weight: normal;
-            display: inline-block;
-            width: auto;
             flex-shrink: 0;
             margin-right: 8px;
             text-align: left;
@@ -696,9 +584,6 @@
         .modal-actions {
             text-align: right;
             margin-top: 20px;
-            margin-bottom: 0;
-            padding-top: 0;
-            border-top: none;
         }
 
         .modal-button-confirm {
@@ -709,53 +594,19 @@
             font-size: 15px;
             border: none;
             cursor: pointer;
-            width: auto;
-            display: inline-block;
         }
 
         .modal-button-confirm:hover {
             background-color: #006720;
-        }
-
-        /* --- 辅助图标样式 (简单模拟) --- */
-        .icon {
-            /* General icon class already used by SVGs, ensure no conflict or merge */
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        /* Fallback text icons if SVGs fail or for other uses, currently not primary */
-        .icon-info::before {
-            content: '!';
-            color: white;
-            font-weight: bold;
-            font-size: 12px;
-        }
-
-        .icon-back::before {
-            content: '<';
-            font-size: 20px;
-        }
-
-        .icon-menu::before {
-            content: '⋮';
-            font-size: 20px;
         }
     </style>
 </head>
 
 <body>
     <div class="mobile-container">
-        <div class="nav-bar">
-            <span class="back-arrow"><span class="icon-back"></span></span>
-            <span class="title">中山大学体育场馆预订系统</span>
-            <span class="menu-dots"><span class="icon-menu"></span></span>
-        </div>
-
         <div class="header-section">
             <div class="logo-area">
-                <img src="sysu.jpg" alt="中山大学 Logo 及名称" class="combined-logo"
-                    onerror="this.alt='中山大学 Logo'; this.src='https://placehold.co/150x35/287c33/FFFFFF?text=SYSULogo';">
+                <img src="sysu.jpg" alt="中山大学 Logo 及名称" class="combined-logo" onerror="this.alt='中山大学 Logo'; this.src='https://placehold.co/150x35/287c33/FFFFFF?text=SYSULogo';">
             </div>
             <div class="account-actions">
                 <button>我的账号</button>
@@ -765,24 +616,19 @@
 
         <div class="action-bar">
             <button class="action-button back-home">
-                <svg class="icon icon-home" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                    width="18" height="18">
-                    <path fill-rule="evenodd"
-                        d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z"
-                        clip-rule="evenodd"></path>
+                <svg class="icon icon-home" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
+                    <path fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z" clip-rule="evenodd"></path>
                 </svg>
                 返回
             </button>
             <div class="appointment-management-label">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"
-                    class="icon icon-appointment-schedule" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" class="icon icon-appointment-schedule" aria-hidden="true">
                     <g fill="currentColor">
                         <rect x="4" y="5" width="16" height="2.5" rx="0.5"></rect>
                         <rect x="4" y="9.5" width="16" height="2.5" rx="0.5"></rect>
                         <rect x="4" y="14" width="11" height="2.5" rx="0.5"></rect>
                     </g>
-                    <circle cx="17.5" cy="16.5" r="5.5" fill="#FFFFFF" stroke="currentColor" stroke-width="1.5">
-                    </circle>
+                    <circle cx="17.5" cy="16.5" r="5.5" fill="#FFFFFF" stroke="currentColor" stroke-width="1.5"></circle>
                     <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
                         <line x1="17.5" y1="16.5" x2="17.5" y2="13"></line>
                         <line x1="17.5" y1="16.5" x2="20.5" y2="16.5"></line>
@@ -800,14 +646,10 @@
                     <div class="tab-item">我的邀请</div>
                     <div class="tab-item">我的排队</div>
                 </div>
-
                 <div class="filter-section">
                     <button class="filter-button date-filter">
-                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                            width="18" height="18" aria-hidden="true">
-                            <path
-                                d="M16 4H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-1 2v1H5V6h10zm-7 2h2v-1H8v1zm8 8H4V8h12v8z">
-                            </path>
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="18" height="18" aria-hidden="true">
+                            <path d="M16 4H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-1 2v1H5V6h10zm-7 2h2v-1H8v1zm8 8H4V8h12v8z"></path>
                             <path d="M7 3v2h1V3H7zm5 0v2h1V3h-1z"></path>
                             <rect x="6.5" y="10.5" width="3" height="3" rx="0.5"></rect>
                         </svg>
@@ -818,24 +660,18 @@
                             <span class="text-label">状态</span>
                             <span class="text-value">已预约</span>
                         </div>
-                        <span class="icon icon-arrow-down">▼</span>
+                        <span class="icon-arrow-down">▼</span>
                     </div>
                 </div>
-
                 <div class="content-inner">
                     <div class="booking-card-wrapper">
-                        <div class="booking-card" data-venue="深圳校区健身房" data-date="2025年6月2日" data-time="12:30 - 14:00"
-                            data-location="深圳校区健身房-场地1" data-booking-id="#RB-B805AT52XQ" data-price="运动时 ¥5">
+                        <div class="booking-card" data-venue="深圳校区健身房" data-date="2025年6月2日" data-time="12:30 - 14:00" data-location="深圳校区健身房-场地1" data-booking-id="#RB-B805AT52XQ" data-price="运动时 ¥5">
                             <div class="card-layout-wrapper">
                                 <div class="card-icon-area">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20"
-                                        class="icon card-main-icon" aria-hidden="true">
-                                        <circle cx="10" cy="10" r="8.5" stroke="#888888" stroke-width="1.5"
-                                            fill="none">
-                                        </circle>
-                                        <path d="M10 5.5 a0.75 0.75 0 0 1 1.5 0v5a0.75 0.75 0 0 1 -1.5 0v-5z"
-                                            fill="#888888"></path>
-                                        <circle cx="10" cy="13.5" r="1" fill="#888888"></circle>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20" class="card-main-icon" aria-hidden="true">
+                                        <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.5" fill="none"></circle>
+                                        <path d="M10 5.5 a0.75 0.75 0 0 1 1.5 0v5a0.75 0.75 0 0 1 -1.5 0v-5z" fill="currentColor"></path>
+                                        <circle cx="10" cy="13.5" r="1" fill="currentColor"></circle>
                                     </svg>
                                 </div>
                                 <div class="card-content-area">
@@ -850,41 +686,23 @@
                                             <span class="price">运动时 ¥5</span>
                                         </div>
                                         <div class="detail-row time-row">
-                                            <div class="time-info"> <svg xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20" width="16" height="16"
-                                                    class="icon detail-icon" aria-hidden="true">
-                                                    <g fill="none" stroke="currentColor" stroke-width="1.5">
-                                                        <rect x="3" y="4" width="14" height="13" rx="1"></rect>
-                                                    </g>
-                                                    <g fill="currentColor">
-                                                        <rect x="6" y="2.5" width="1.5" height="3" rx="0.5"></rect>
-                                                        <rect x="12.5" y="2.5" width="1.5" height="3" rx="0.5">
-                                                        </rect>
-                                                        <rect x="3" y="8" width="14" height="1.5"></rect>
-                                                        <rect x="6" y="10.5" width="3" height="3" rx="0.5"></rect>
-                                                    </g>
+                                            <div class="time-info">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="detail-icon" aria-hidden="true">
+                                                    <g fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="14" height="13" rx="1"></rect></g>
+                                                    <g fill="currentColor"><rect x="6" y="2.5" width="1.5" height="3" rx="0.5"></rect><rect x="12.5" y="2.5" width="1.5" height="3" rx="0.5"></rect><rect x="3" y="8" width="14" height="1.5"></rect><rect x="6" y="10.5" width="3" height="3" rx="0.5"></rect></g>
                                                 </svg>
-                                                <span>2025年6月2日</span>
+                                                <span id="card-date">2025年6月27日</span>
                                             </div>
-                                            <div class="time-info"> <svg xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20" width="16" height="16"
-                                                    class="icon detail-icon icon-clock-svg" aria-hidden="true">
-                                                    <circle cx="10" cy="10" r="7.5" fill="none"
-                                                        stroke="currentColor" stroke-width="1.5"></circle>
-                                                    <g stroke="currentColor" stroke-width="1.5"
-                                                        stroke-linecap="round">
-                                                        <line x1="10" y1="10" x2="10" y2="5.5"></line>
-                                                        <line x1="10" y1="10" x2="13.5" y2="10"></line>
-                                                    </g>
+                                            <div class="time-info">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="detail-icon" aria-hidden="true">
+                                                    <circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor" stroke-width="1.5"></circle>
+                                                    <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="10" y1="10" x2="10" y2="5.5"></line><line x1="10" y1="10" x2="13.5" y2="10"></line></g>
                                                 </svg>
-                                                <span>12:30 - 14:00</span>
+                                                <span id="card-time">12:30 - 14:00</span>
                                             </div>
-                                            <div class="time-info"> <svg xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20" width="16" height="16"
-                                                    class="icon detail-icon" aria-hidden="true">
-                                                    <path fill="currentColor"
-                                                        d="M10,18 C6,14 3,11.2 3,7.5 C3,4 6,1 10,1 C14,1 17,4 17,7.5 C17,11.2 14,14 10,18 Z">
-                                                    </path>
+                                            <div class="time-info">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="detail-icon" aria-hidden="true">
+                                                    <path fill="currentColor" d="M10,18 C6,14 3,11.2 3,7.5 C3,4 6,1 10,1 C14,1 17,4 17,7.5 C17,11.2 14,14 10,18 Z"></path>
                                                     <circle cx="10" cy="7.5" r="1.8" fill="#FFFFFF"></circle>
                                                 </svg>
                                                 <span>深圳校区健身房-场地1</span>
@@ -906,43 +724,42 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="footer">
-        <div class="footer-header">
-            <p class="title">中山大学体育场馆预约系统</p>
-            <p class="address">广东省广州市海珠区新港西路135号</p>
-        </div>
-        <div class="footer-content">
-            <div class="qr-section">
-                <p>填表申请补发运动时:</p>
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=example" alt="申请二维码">
+        <div class="footer">
+            <div class="footer-header">
+                <p class="title">中山大学体育场馆预约系统</p>
+                <p class="address">广东省广州市海珠区新港西路135号</p>
             </div>
-            <div class="contact-section">
-                <p>联系我们: zdtiyu@163.com</p>
-                <p class="contact-title">体育场馆物业值班电话:</p>
-                <p>南校园: 020-84115839</p>
-                <p>北校园: 020-87335717</p>
-                <p>东校园: 020-39333766</p>
-                <p>深圳校区: 0755-23260027</p>
-                <p>珠海校区: 0756-3668220</p>
+            <div class="footer-content">
+                <div class="qr-section">
+                    <p>填表申请补发运动时:</p>
+                    <div class="qr-code-wrapper">
+                        <img class="qr-code-image" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=example_url&ecc=H" alt="申请二维码">
+                        <div class="qr-logo">T</div>
+                    </div>
+                </div>
+                <div class="contact-section">
+                    <p>联系我们: zdtiyu@163.com | 体育场馆物业值班电话:</p>
+                    <p>南校园: 020-84115839</p>
+                    <p>北校园: 020-87335717</p>
+                    <p>东校园: 020-39333766</p>
+                    <p>深圳校区: 0755-23260027</p>
+                    <p>珠海校区: 0756-3668220</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    </div>
-
-    <div id="booking-modal-overlay" class="modal-overlay">
+    </div> <div id="booking-modal-overlay" class="modal-overlay">
         <div id="booking-modal" class="modal">
             <div class="modal-content">
                 <h2 class="modal-title">我的预约</h2>
                 <div class="modal-details">
-                    <p><strong>场馆：</strong> <span id="modal-venue">深圳校区健身房</span></p>
-                    <p><strong>预约日期：</strong> <span id="modal-date">2025年6月2日</span></p>
-                    <p><strong>预约时段：</strong> <span id="modal-time">12:30 - 14:00</span></p>
-                    <p><strong>场地名称：</strong> <span id="modal-location">深圳校区健身房-场地1</span></p>
-                    <p><strong>预约编号：</strong> <span id="modal-booking-id">#RB-B805AT52XQ</span></p>
-                    <p><strong>费用：</strong> <span id="modal-price">运动时 ¥5</span></p>
+                    <p><strong>场馆：</strong> <span id="modal-venue"></span></p>
+                    <p><strong>预约日期：</strong> <span id="modal-date"></span></p>
+                    <p><strong>预约时段：</strong> <span id="modal-time"></span></p>
+                    <p><strong>场地名称：</strong> <span id="modal-location"></span></p>
+                    <p><strong>预约编号：</strong> <span id="modal-booking-id"></span></p>
+                    <p><strong>费用：</strong> <span id="modal-price"></span></p>
                 </div>
                 <div class="modal-actions">
                     <button id="modal-confirm-button" class="modal-button-confirm">确认</button>
@@ -951,163 +768,53 @@
         </div>
     </div>
 
-    </div>
     <script>
-        // --- 日期和时间处理函数 ---
-        function getTodayFormattedDate() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = now.getMonth() + 1; // 月份是从0开始的
-            const day = now.getDate();
-            return `${year}年${month}月${day}日`;
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            function updateDateTimeDisplays() {
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = now.getMonth() + 1;
+                const day = now.getDate();
+                const todayFormatted = `${year}年${month}月${day}日`;
+                
+                const cardDateEl = document.getElementById('card-date');
+                const cardTimeEl = document.getElementById('card-time');
 
-        function getCurrentTimeSlot() {
-            const now = new Date();
-            const dayOfWeek = now.getDay(); // 0 (Sunday) - 6 (Saturday)
-            const currentHour = now.getHours();
-            const currentMinute = now.getMinutes();
-            const currentTimeTotalMinutes = currentHour * 60 + currentMinute;
-            let timeSlot = "";
-
-            // Slot definitions: {triggerHour, triggerMinute, slotStartHour, slotEndHour}
-            // A slot E:00 - (E+2):00 is considered active if current time is
-            // between its trigger time (E-1:30) and the next slot's trigger time.
-            const definedSlots = [
-                { th: 23, tm: 30, ssh: 0, seh: 2 },  // Trigger 23:30 (prev day) for 00:00-02:00 slot
-                { th: 1, tm: 30, ssh: 2, seh: 4 },  // Trigger 01:30 for 02:00-04:00 slot
-                { th: 3, tm: 30, ssh: 4, seh: 6 },
-                { th: 5, tm: 30, ssh: 6, seh: 8 },
-                { th: 7, tm: 30, ssh: 8, seh: 10 },
-                { th: 9, tm: 30, ssh: 10, seh: 12 }, // Trigger 09:30 for 10:00-12:00 slot
-                { th: 11, tm: 30, ssh: 12, seh: 14 }, // Trigger 11:30 for 12:00-14:00 slot
-                { th: 13, tm: 30, ssh: 14, seh: 16 }, // Trigger 13:30 for 14:00-16:00 slot
-                { th: 15, tm: 30, ssh: 16, seh: 18 },
-                { th: 17, tm: 30, ssh: 18, seh: 20 },
-                { th: 19, tm: 30, ssh: 20, seh: 22 },
-                { th: 21, tm: 30, ssh: 22, seh: 0 }   // Trigger 21:30 for 22:00-00:00 (seh:0 means 24:00 or 00:00 next day)
-            ];
-
-            if (dayOfWeek === 0 || dayOfWeek === 6) { // Weekend
-                for (let i = 0; i < definedSlots.length; i++) {
-                    const s = definedSlots[i];
-                    const triggerStartTotalMinutes = s.th * 60 + s.tm;
-
-                    let triggerEndTotalMinutes;
-                    // The active period for a slot's trigger ends when the next slot's trigger begins.
-                    if (i === definedSlots.length - 1) { // Current slot is the last one (e.g. 22:00-00:00)
-                        // Its trigger period ends when the first slot's trigger begins (e.g. 23:30 for 00:00-02:00)
-                        triggerEndTotalMinutes = definedSlots[0].th * 60 + definedSlots[0].tm;
-                    } else {
-                        triggerEndTotalMinutes = definedSlots[i + 1].th * 60 + definedSlots[i + 1].tm;
-                    }
-
-                    // Check if current time falls into the active period for this slot's trigger
-                    // Active period is [triggerStartTotalMinutes, triggerEndTotalMinutes)
-                    if (triggerStartTotalMinutes < triggerEndTotalMinutes) {
-                        // Normal case, e.g. trigger window [09:30, 11:30)
-                        if (currentTimeTotalMinutes >= triggerStartTotalMinutes && currentTimeTotalMinutes < triggerEndTotalMinutes) {
-                            timeSlot = `${String(s.ssh).padStart(2, '0')}:00 - ${String(s.seh).padStart(2, '0')}:00`;
-                            break;
-                        }
-                    } else {
-                        // Day wrap case for trigger interval, e.g. current trigger is 23:30, next is 01:30.
-                        // Interval is [23:30 today, 01:30 tomorrow morning)
-                        if (currentTimeTotalMinutes >= triggerStartTotalMinutes || currentTimeTotalMinutes < triggerEndTotalMinutes) {
-                            timeSlot = `${String(s.ssh).padStart(2, '0')}:00 - ${String(s.seh).padStart(2, '0')}:00`;
-                            break;
-                        }
-                    }
+                if (cardDateEl) {
+                    cardDateEl.textContent = todayFormatted;
                 }
-            } else { // Weekday (Monday to Friday)
-                // "起始时间是12:30-14:00"
-                if (currentTimeTotalMinutes < (14 * 60)) { // Before 14:00 on a weekday
-                    timeSlot = "12:30 - 14:00";
-                } else {
-                    // "14：00之后在每个偶数时刻的前半小时，把时间段改成后2小时"
-                    // This implies the same logic as weekends applies from 14:00 onwards.
-                    for (let i = 0; i < definedSlots.length; i++) {
-                        const s = definedSlots[i];
-                        const triggerStartTotalMinutes = s.th * 60 + s.tm;
-                        let triggerEndTotalMinutes;
-                        if (i === definedSlots.length - 1) {
-                            triggerEndTotalMinutes = definedSlots[0].th * 60 + definedSlots[0].tm;
-                        } else {
-                            triggerEndTotalMinutes = definedSlots[i + 1].th * 60 + definedSlots[i + 1].tm;
-                        }
 
-                        if (triggerStartTotalMinutes < triggerEndTotalMinutes) {
-                            if (currentTimeTotalMinutes >= triggerStartTotalMinutes && currentTimeTotalMinutes < triggerEndTotalMinutes) {
-                                timeSlot = `${String(s.ssh).padStart(2, '0')}:00 - ${String(s.seh).padStart(2, '0')}:00`;
-                                break;
-                            }
-                        } else {
-                            if (currentTimeTotalMinutes >= triggerStartTotalMinutes || currentTimeTotalMinutes < triggerEndTotalMinutes) {
-                                timeSlot = `${String(s.ssh).padStart(2, '0')}:00 - ${String(s.seh).padStart(2, '0')}:00`;
-                                break;
-                            }
-                        }
-                    }
+                // Simplified time slot logic for demonstration
+                const currentHour = now.getHours();
+                let timeSlot = "12:30 - 14:00"; // Default
+                if (currentHour >= 22 || currentHour < 1) timeSlot = "22:00 - 00:00";
+                else if (currentHour < 3) timeSlot = "00:00 - 02:00";
+                // Add other time slots as needed
+                
+                if (cardTimeEl) {
+                    cardTimeEl.textContent = timeSlot;
+                }
+
+                // Update dataset for modal
+                const card = document.querySelector('.booking-card');
+                if (card) {
+                    card.dataset.date = todayFormatted;
+                    card.dataset.time = timeSlot;
                 }
             }
 
-            // Fallback if no slot was determined (should ideally not happen if logic is exhaustive)
-            if (!timeSlot) {
-                // console.warn("Could not determine time slot for current time. Defaulting.");
-                // Defaulting to a generic slot as a safety measure, though the logic above should cover all cases.
-                timeSlot = "12:00 - 14:00";
-            }
-            return timeSlot;
-        }
-
-        function updateAllDateTimeDisplays() {
-            const todayFormattedDate = getTodayFormattedDate();
-            const currentTimeSlot = getCurrentTimeSlot();
-
-            const allBookingCards = document.querySelectorAll('.booking-card');
-
-            allBookingCards.forEach(card => {
-                // 更新卡片的 data-* 属性
-                card.dataset.date = todayFormattedDate;
-                card.dataset.time = currentTimeSlot;
-
-                // 更新卡片内显示的日期和时间
-                const timeInfoDivs = card.querySelectorAll('.detail-row.time-row .time-info');
-                if (timeInfoDivs.length >= 2) {
-                    const dateDisplaySpan = timeInfoDivs[0].querySelector('span');
-                    const timeDisplaySpan = timeInfoDivs[1].querySelector('span');
-
-                    if (dateDisplaySpan) {
-                        dateDisplaySpan.textContent = todayFormattedDate;
-                    }
-                    if (timeDisplaySpan) {
-                        timeDisplaySpan.textContent = currentTimeSlot;
-                    }
-                }
-            });
-        }
-
-        // --- 原有的 Modal JavaScript ---
-        document.addEventListener('DOMContentLoaded', function () {
+            // Modal logic
             const modalOverlay = document.getElementById('booking-modal-overlay');
             const modalConfirmButton = document.getElementById('modal-confirm-button');
             const bookingCards = document.querySelectorAll('.booking-card');
 
-            const modalVenue = document.getElementById('modal-venue');
-            const modalDate = document.getElementById('modal-date');
-            const modalTime = document.getElementById('modal-time');
-            const modalLocation = document.getElementById('modal-location');
-            const modalBookingId = document.getElementById('modal-booking-id');
-            const modalPrice = document.getElementById('modal-price');
-
-            function showModal(data) {
-                console.log("[企业微信开发助手] Debug: Populating modal with data:", data);
-                modalVenue.textContent = data.venue || '-';
-                modalDate.textContent = data.date || '-';
-                modalTime.textContent = data.time || '-';
-                modalLocation.textContent = data.location || '-';
-                modalBookingId.textContent = data.bookingId || '-';
-                modalPrice.textContent = data.price || '-';
+            function showModal(card) {
+                document.getElementById('modal-venue').textContent = card.dataset.venue;
+                document.getElementById('modal-date').textContent = card.dataset.date;
+                document.getElementById('modal-time').textContent = card.dataset.time;
+                document.getElementById('modal-location').textContent = card.dataset.location;
+                document.getElementById('modal-booking-id').textContent = card.dataset.bookingId;
+                document.getElementById('modal-price').textContent = card.dataset.price;
                 modalOverlay.classList.add('visible');
             }
 
@@ -1116,41 +823,22 @@
             }
 
             bookingCards.forEach(card => {
-                card.addEventListener('click', function (event) {
-                    if (event.target.closest('.card-actions button')) {
-                        console.log("[企业微信开发助手] Debug: Clicked on action button, preventing modal.");
-                        return;
-                    }
-                    const data = {
-                        venue: this.dataset.venue,
-                        date: this.dataset.date,
-                        time: this.dataset.time,
-                        location: this.dataset.location,
-                        bookingId: this.dataset.bookingId,
-                        price: this.dataset.price
-                    };
-                    showModal(data);
+                card.addEventListener('click', function(event) {
+                    if (event.target.closest('.cancel-button')) return;
+                    showModal(this);
                 });
             });
 
             modalConfirmButton.addEventListener('click', hideModal);
-
-            modalOverlay.addEventListener('click', function (event) {
+            modalOverlay.addEventListener('click', function(event) {
                 if (event.target === modalOverlay) {
                     hideModal();
                 }
             });
 
-            updateAllDateTimeDisplays();
-            setInterval(updateAllDateTimeDisplays, 1000);
-
-
-            console.log("[企业微信开发助手] Debug: Modal Overlay found:", modalOverlay);
-            console.log("[企业微信开发助手] Debug: Confirm Button found:", modalConfirmButton);
-            console.log("[企业微信开发助手] Debug: Booking Cards found:", bookingCards.length);
-            console.log("[企业微信开发助手] Debug: Tab Bar found:", document.querySelector('.tab-bar'));
-            console.log("[企业微信开发助手] Debug: Filter Section found:", document.querySelector('.filter-section'));
-            console.log("[企业微信开发助手] Debug: Appointment Management Label found:", document.querySelector('.appointment-management-label'));
+            // Initial and periodic updates
+            updateDateTimeDisplays();
+            setInterval(updateDateTimeDisplays, 60000); // Update every minute
         });
     </script>
 
