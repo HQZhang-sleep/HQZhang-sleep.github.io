@@ -853,7 +853,16 @@
             updateDateTimeDisplays();
             setInterval(updateDateTimeDisplays, 60000); // Update every minute
 
-            // “我的账号”按钮跳转
+            // Tab 切换高亮
+            const tabItems = document.querySelectorAll('.tab-item');
+            tabItems.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabItems.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // "我的账号"按钮跳转
             const myAccountBtn = document.querySelector('.account-actions button');
             if (myAccountBtn) {
                 myAccountBtn.addEventListener('click', function() {
