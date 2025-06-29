@@ -488,10 +488,12 @@
 
         .qr-section .qr-code-wrapper {
             background-color: white;
-            padding: 6px; /* 留出白边 */
+            padding: 6px;
+            /* 留出白边 */
             display: inline-block;
             border-radius: 4px;
-            position: relative; /* 用于定位内部的Logo */
+            position: relative;
+            /* 用于定位内部的Logo */
         }
 
         .qr-section .qr-code-image {
@@ -499,16 +501,19 @@
             height: 100px;
             display: block;
         }
-        
+
         .qr-section .qr-logo {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 25px; /* Logo 尺寸 */
+            width: 25px;
+            /* Logo 尺寸 */
             height: 25px;
-            background-color: #00529C; /* 模拟的蓝色 */
-            border: 2px solid white; /* Logo周围的白色边框 */
+            background-color: #00529C;
+            /* 模拟的蓝色 */
+            border: 2px solid white;
+            /* Logo周围的白色边框 */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -762,7 +767,8 @@
             </div>
         </div>
 
-    </div> <div id="booking-modal-overlay" class="modal-overlay">
+    </div>
+    <div id="booking-modal-overlay" class="modal-overlay">
         <div id="booking-modal" class="modal">
             <div class="modal-content">
                 <h2 class="modal-title">我的预约</h2>
@@ -789,7 +795,7 @@
                 const month = now.getMonth() + 1;
                 const day = now.getDate();
                 const todayFormatted = `${year}年${month}月${day}日`;
-                
+
                 const cardDateEl = document.getElementById('card-date');
                 const cardTimeEl = document.getElementById('card-time');
 
@@ -797,13 +803,47 @@
                     cardDateEl.textContent = todayFormatted;
                 }
 
-                // Simplified time slot logic for demonstration
+                // --- [MODIFIED] Start of new dynamic time slot logic ---
+
+                let timeSlot = "";
+                const dayOfWeek = now.getDay(); // 0=Sunday, 1=Monday, ..., 6=Saturday
                 const currentHour = now.getHours();
-                let timeSlot = "12:30 - 14:00"; // Default
-                if (currentHour >= 22 || currentHour < 1) timeSlot = "22:00 - 00:00";
-                else if (currentHour < 3) timeSlot = "00:00 - 02:00";
-                // Add other time slots as needed
-                
+                const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+
+                // Helper function to format hour (e.g., 8 -> "08", 24 -> "00")
+                const formatHour = (hour) => (hour % 24).toString().padStart(2, '0');
+
+                // Logic to calculate the 2-hour slots based on the "change 15 mins before" rule
+                const getTwoHourSlot = () => {
+                    // Create a new Date object advanced by 15 minutes to handle the "before" rule
+                    const adjustedTime = new Date(now.getTime() + 15 * 60 * 1000);
+                    const adjustedHour = adjustedTime.getHours();
+
+                    // Find the even hour that the adjusted time falls into.
+                    // This will be the start of our 2-hour slot.
+                    const startHour = adjustedHour - (adjustedHour % 2);
+                    const endHour = startHour + 2;
+
+                    return `${formatHour(startHour)}:00 - ${formatHour(endHour)}:00`;
+                };
+
+                // Apply rules based on whether it's a weekend or weekday
+                if (isWeekend) {
+                    // Rule 1: Weekends always use the 2-hour slot system
+                    timeSlot = getTwoHourSlot();
+                } else {
+                    // Rule 2: Weekdays have special logic
+                    if (currentHour < 14) {
+                        // Before 14:00, the slot is fixed
+                        timeSlot = "12:30 - 14:00";
+                    } else {
+                        // At or after 14:00, switch to the 2-hour slot system
+                        timeSlot = getTwoHourSlot();
+                    }
+                }
+
+                // --- [MODIFIED] End of new dynamic time slot logic ---
+
                 if (cardTimeEl) {
                     cardTimeEl.textContent = timeSlot;
                 }
