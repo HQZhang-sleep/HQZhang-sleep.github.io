@@ -831,20 +831,7 @@
                     return `${formatHour(startHour)}:00 - ${formatHour(endHour)}:00`;
                 };
 
-                // Apply rules based on whether it's a weekend or weekday
-                if (isWeekend) {
-                    // Rule 1: Weekends always use the 2-hour slot system
-                    timeSlot = getTwoHourSlot();
-                } else {
-                    // Rule 2: Weekdays have special logic
-                    if (currentHour < 14) {
-                        // Before 14:00, the slot is fixed
-                        timeSlot = "12:30 - 14:00";
-                    } else {
-                        // At or after 14:00, switch to the 2-hour slot system
-                        timeSlot = getTwoHourSlot();
-                    }
-                }
+                timeSlot = "19:30 - 21:00";
 
                 // --- [MODIFIED] End of new dynamic time slot logic ---
 
